@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rôles dans le syndicat CGT</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/roles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <img src="img/logo-cgt.png" alt="Logo CGT">
+    </div>
+    <h1>Formation CGT - Rôles dans le syndicat</h1>
+    <div class="theme-toggle">
+      <label class="switch">
+        <input type="checkbox" id="theme-switch">
+        <div class="slider"></div>
+      </label>
+      <span class="theme-icon">🌙</span>
+    </div>
+  </header>
+
+  <div class="top-progress-bar">
+    <div id="top-progress-indicator" class="top-progress-indicator" style="width: 100%;"></div>
+  </div>
+
+  <div class="org-info">Organisée par l'Union Départementale des Syndicats CGT de l'Aveyron</div>
+
+  <!-- Table des matières -->
+  <div class="toc" id="table-of-contents">
+    <div class="toc-header">
+      <h3>Table des matières</h3>
+      <button class="close-toc" id="close-toc">&times;</button>
+    </div>
+    <div class="toc-content">
+      <ul>
+        <li><a href="index.html" data-slide="0">Accueil et ouverture</a></li>
+        <li><a href="statuts.html">Fonctionnement statutaire</a></li>
+        <li><a href="roles.html">Rôles dans le syndicat</a></li>
+        <li><a href="index.html" data-slide="2">Le rôle des adhérent·es</a></li>
+        <li><a href="index.html" data-slide="3">Élu·es, mandaté·es, responsables</a></li>
+        <li><a href="index.html" data-slide="4">CE, Bureau syndical, SG : qui fait quoi ?</a></li>
+        <li><a href="index.html" data-slide="5">AG et congrès : lieux de souveraineté</a></li>
+        <li><a href="index.html" data-slide="6">Cotisations et outils CGT</a></li>
+        <li><a href="index.html" data-slide="7">Articulation syndicat / UL / UD / Fédé</a></li>
+        <li><a href="index.html" data-slide="8">Synthèse et engagements</a></li>
+        <li><a href="index.html" data-slide="9">Glossaire CGT</a></li>
+      </ul>
+    </div>
+  </div>
+  
+  <!-- Overlay pour la table des matières -->
+  <div class="toc-overlay" id="toc-overlay"></div>
+
+  <div class="roles-container">
+    <div class="roles-intro">
+      <h2>Rôles dans le syndicat CGT</h2>
+      <p>Découvrez les différents rôles et responsabilités au sein d'un syndicat CGT. Explorez chaque carte pour en savoir plus ou testez vos connaissances en mode quiz.</p>
+      
+      <div class="mode-selector">
+        <button id="exploration-mode" class="mode-btn active">Mode exploration</button>
+        <button id="quiz-mode" class="mode-btn">Mode quiz</button>
+      </div>
+      
+      <div class="slide-actions">
+        <button class="toc-button" type="button" onclick="toggleTOC()">📋 Sommaire</button>
+        <button class="print-button" onclick="window.print()">🖨️ Imprimer</button>
+      </div>
+    </div>
+
+    <div class="roles-grid">
+      <!-- Secrétaire Général -->
+      <div class="role-card" data-role="sg">
+        <div class="role-front">
+          <h3>Secrétaire Général</h3>
+          <div class="role-icon">👑</div>
+          <p class="role-question">Quel est le rôle du Secrétaire Général dans un syndicat CGT ?</p>
+          <button class="reveal-btn">Révéler</button>
+        </div>
+        <div class="role-back">
+          <h3>Secrétaire Général</h3>
+          <ul class="role-details">
+            <li>Représente le syndicat auprès des employeurs et des institutions</li>
+            <li>Coordonne l'activité syndicale et veille à l'application des décisions</li>
+            <li>Anime l'équipe syndicale et les réunions du bureau</li>
+            <li>Signe les correspondances officielles du syndicat</li>
+            <li>Rend compte régulièrement de son activité devant les instances</li>
+          </ul>
+          <button class="hide-btn">Masquer</button>
+        </div>
+      </div>
+
+      <!-- Trésorier -->
+      <div class="role-card" data-role="tresorier">
+        <div class="role-front">
+          <h3>Trésorier</h3>
+          <div class="role-icon">💰</div>
+          <p class="role-question">Quelles sont les responsabilités du Trésorier ?</p>
+          <button class="reveal-btn">Révéler</button>
+        </div>
+        <div class="role-back">
+          <h3>Trésorier</h3>
+          <ul class="role-details">
+            <li>Gère les finances du syndicat et tient la comptabilité</li>
+            <li>Collecte les cotisations et effectue les reversements à COGETISE</li>
+            <li>Prépare le budget prévisionnel et les bilans financiers</li>
+            <li>Veille à la bonne utilisation des ressources du syndicat</li>
+            <li>Présente régulièrement l'état des finances aux instances</li>
+          </ul>
+          <button class="hide-btn">Masquer</button>
+        </div>
+      </div>
+
+      <!-- Secrétaire à l'Organisation -->
+      <div class="role-card" data-role="org">
+        <div class="role-front">
+          <h3>Secrétaire à l'Organisation</h3>
+          <div class="role-icon">📋</div>
+          <p class="role-question">Que fait le Secrétaire à l'Organisation ?</p>
+          <button class="reveal-btn">Révéler</button>
+        </div>
+        <div class="role-back">
+          <h3>Secrétaire à l'Organisation</h3>
+          <ul class="role-details">
+            <li>Organise la vie interne du syndicat (réunions, congrès, etc.)</li>
+            <li>Suit l'évolution des adhésions et la syndicalisation</li>
+            <li>Coordonne la communication interne</li>
+            <li>Veille au bon fonctionnement des structures</li>
+            <li>Assure le lien avec les structures interprofessionnelles (UL, UD, etc.)</li>
+          </ul>
+          <button class="hide-btn">Masquer</button>
+        </div>
+      </div>
+
+      <!-- Délégué Syndical -->
+      <div class="role-card" data-role="ds">
+        <div class="role-front">
+          <h3>Délégué Syndical</h3>
+          <div class="role-icon">🗣️</div>
+          <p class="role-question">Quel est le rôle du Délégué Syndical dans l'entreprise ?</p>
+          <button class="reveal-btn">Révéler</button>
+        </div>
+        <div class="role-back">
+          <h3>Délégué Syndical</h3>
+          <ul class="role-details">
+            <li>Représente le syndicat auprès de l'employeur</li>
+            <li>Négocie les accords collectifs</li>
+            <li>Présente les revendications des salariés</li>
+            <li>Anime la section syndicale dans l'entreprise</li>
+            <li>Informe et conseille les salariés sur leurs droits</li>
+          </ul>
+          <button class="hide-btn">Masquer</button>
+        </div>
+      </div>
+
+      <!-- Représentant au CSE -->
+      <div class="role-card" data-role="cse">
+        <div class="role-front">
+          <h3>Élu au CSE</h3>
+          <div class="role-icon">🏢</div>
+          <p class="role-question">Quelles sont les missions d'un élu au CSE ?</p>
+          <button class="reveal-btn">Révéler</button>
+        </div>
+        <div class="role-back">
+          <h3>Élu au CSE</h3>
+          <ul class="role-details">
+            <li>Présente les réclamations des salariés à l'employeur</li>
+            <li>Veille au respect des droits des salariés</li>
+            <li>Participe aux consultations obligatoires</li>
+            <li>Contribue à la promotion de la santé et de la sécurité</li>
+            <li>Gère les activités sociales et culturelles (selon la taille de l'entreprise)</li>
+          </ul>
+          <button class="hide-btn">Masquer</button>
+        </div>
+      </div>
+
+      <!-- Représentant de Proximité -->
+      <div class="role-card" data-role="rp">
+        <div class="role-front">
+          <h3>Représentant de Proximité</h3>
+          <div class="role-icon">👥</div>
+          <p class="role-question">À quoi sert un Représentant de Proximité ?</p>
+          <button class="reveal-btn">Révéler</button>
+        </div>
+        <div class="role-back">
+          <h3>Représentant de Proximité</h3>
+          <ul class="role-details">
+            <li>Assure une présence syndicale au plus près des salariés</li>
+            <li>Remonte les problèmes quotidiens des salariés</li>
+            <li>Traite les questions de santé, sécurité et conditions de travail</li>
+            <li>Fait le lien entre les salariés et les élus du CSE</li>
+            <li>Intervient rapidement sur les problèmes locaux</li>
+          </ul>
+          <button class="hide-btn">Masquer</button>
+        </div>
+      </div>
+
+      <!-- Commission Exécutive -->
+      <div class="role-card" data-role="ce">
+        <div class="role-front">
+          <h3>Commission Exécutive</h3>
+          <div class="role-icon">⚖️</div>
+          <p class="role-question">Quel est le rôle de la Commission Exécutive (CE) ?</p>
+          <button class="reveal-btn">Révéler</button>
+        </div>
+        <div class="role-back">
+          <h3>Commission Exécutive</h3>
+          <ul class="role-details">
+            <li>Dirige le syndicat entre deux congrès</li>
+            <li>Prend les décisions politiques et stratégiques</li>
+            <li>Élit le bureau et le secrétariat</li>
+            <li>Contrôle l'activité du bureau</li>
+            <li>Met en œuvre les orientations décidées en congrès</li>
+          </ul>
+          <button class="hide-btn">Masquer</button>
+        </div>
+      </div>
+
+      <!-- Bureau Syndical -->
+      <div class="role-card" data-role="bureau">
+        <div class="role-front">
+          <h3>Bureau Syndical</h3>
+          <div class="role-icon">🔍</div>
+          <p class="role-question">Quelles sont les fonctions du Bureau Syndical ?</p>
+          <button class="reveal-btn">Révéler</button>
+        </div>
+        <div class="role-back">
+          <h3>Bureau Syndical</h3>
+          <ul class="role-details">
+            <li>Assure la gestion quotidienne du syndicat</li>
+            <li>Met en œuvre les décisions de la CE</li>
+            <li>Prépare les réunions de la CE</li>
+            <li>Coordonne l'activité des différents secteurs</li>
+            <li>Réagit rapidement aux situations urgentes</li>
+          </ul>
+          <button class="hide-btn">Masquer</button>
+        </div>
+      </div>
+
+      <!-- Adhérent -->
+      <div class="role-card" data-role="adherent">
+        <div class="role-front">
+          <h3>Adhérent</h3>
+          <div class="role-icon">🧑‍🤝‍🧑</div>
+          <p class="role-question">Quels sont les droits et devoirs d'un adhérent CGT ?</p>
+          <button class="reveal-btn">Révéler</button>
+        </div>
+        <div class="role-back">
+          <h3>Adhérent</h3>
+          <ul class="role-details">
+            <li>Participe à la vie démocratique du syndicat</li>
+            <li>Vote lors des assemblées générales et congrès</li>
+            <li>Contribue financièrement par sa cotisation</li>
+            <li>Peut être candidat aux responsabilités syndicales</li>
+            <li>Diffuse les valeurs et revendications de la CGT</li>
+          </ul>
+          <button class="hide-btn">Masquer</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="quiz-container" style="display: none;">
+      <div class="quiz-question">
+        <h3 id="quiz-title">Question :</h3>
+        <p id="quiz-text"></p>
+        <div id="quiz-options" class="quiz-options"></div>
+        <div class="quiz-controls">
+          <button id="quiz-check">Vérifier</button>
+          <button id="quiz-next" disabled>Question suivante</button>
+        </div>
+        <div id="quiz-feedback" class="quiz-feedback"></div>
+      </div>
+    </div>
+
+    <div class="roles-actions">
+      <button id="reveal-all-btn">Révéler tous les rôles</button>
+      <button id="hide-all-btn">Masquer tous les rôles</button>
+      <button id="back-to-slides" onclick="window.location.href='index.html'">Retour aux slides</button>
+    </div>
+  </div>
+
+  <script src="js/roles.js"></script>
+  <script>
+    // Gestion du thème
+    const themeSwitch = document.getElementById('theme-switch');
+    const themeIcon = document.querySelector('.theme-icon');
+    
+    // Vérifier si un thème est déjà enregistré
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      themeSwitch.checked = true;
+      themeIcon.textContent = '☀️';
+    }
+    
+    themeSwitch.addEventListener('change', function() {
+      if (this.checked) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+        themeIcon.textContent = '☀️';
+      } else {
+        document.documentElement.setAttribute('data-theme', 'light');
+        localStorage.setItem('theme', 'light');
+        themeIcon.textContent = '🌙';
+      }
+    });
+    
+    // Gestion de la table des matières
+    document.addEventListener('DOMContentLoaded', function() {
+      // Fonction pour gérer la table des matières
+      const tocButton = document.querySelector('.toc-button');
+      const toc = document.getElementById('table-of-contents');
+      const tocOverlay = document.getElementById('toc-overlay');
+      const closeTocButton = document.getElementById('close-toc');
+      
+      if (tocButton && toc && tocOverlay && closeTocButton) {
+        // Utiliser la fonction toggleTOC de script.js si elle existe
+        if (typeof toggleTOC !== 'function') {
+          tocButton.addEventListener('click', function() {
+            toc.style.display = toc.style.display === 'block' ? 'none' : 'block';
+            tocOverlay.style.display = toc.style.display === 'block' ? 'block' : 'none';
+          });
+        }
+        
+        closeTocButton.addEventListener('click', function() {
+          toc.style.display = 'none';
+          tocOverlay.style.display = 'none';
+        });
+        
+        tocOverlay.addEventListener('click', function() {
+          toc.style.display = 'none';
+          tocOverlay.style.display = 'none';
+        });
+      }
+    });
+  </script>
+</body>
+</html>

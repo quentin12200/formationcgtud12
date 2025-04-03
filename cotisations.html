@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cotisations et Outils CGT - Formation CGT</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    :root {
+      --cgt-red: #E30613;
+      --cgt-light-red: #ffebee;
+      --card-bg: #ffffff;
+      --bg-light: #f5f5f5;
+      --text-dark: #333333;
+      --text-light: #ffffff;
+      --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    body.dark-theme {
+      --card-bg: #2d2d2d;
+      --bg-light: #1a1a1a;
+      --text-dark: #f0f0f0;
+      --text-light: #ffffff;
+      --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    }
+    
+    body {
+      font-family: 'Montserrat', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg-light);
+      color: var(--text-dark);
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px;
+      background-color: var(--card-bg);
+      box-shadow: var(--shadow);
+      margin-bottom: 30px;
+    }
+    
+    header img {
+      height: 60px;
+    }
+    
+    .header-text {
+      flex-grow: 1;
+      text-align: center;
+    }
+    
+    h1 {
+      color: var(--cgt-red);
+      margin: 0;
+      font-size: 1.8rem;
+    }
+    
+    h2 {
+      margin: 0;
+      font-size: 1.4rem;
+    }
+    
+    .cotisations-container {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+    
+    .cotisations-section {
+      background-color: var(--card-bg);
+      border-radius: 10px;
+      box-shadow: var(--shadow);
+      padding: 20px;
+      transition: transform 0.3s ease;
+    }
+    
+    .cotisations-section:hover {
+      transform: translateY(-5px);
+    }
+    
+    .cotisations-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid var(--cgt-red);
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+    }
+    
+    .cotisations-actions {
+      display: flex;
+      gap: 10px;
+    }
+    
+    .cotisations-actions button {
+      background-color: var(--bg-light);
+      color: var(--text-dark);
+      border: none;
+      padding: 8px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 0.9em;
+      transition: all 0.2s;
+    }
+    
+    .cotisations-actions button:hover {
+      background-color: var(--cgt-red);
+      color: var(--text-light);
+    }
+    
+    .calculator {
+      background-color: var(--bg-light);
+      padding: 20px;
+      border-radius: 10px;
+      margin-top: 20px;
+    }
+    
+    .calculator-form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    
+    .form-group label {
+      font-weight: bold;
+    }
+    
+    .form-group input {
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      background-color: var(--card-bg);
+      color: var(--text-dark);
+    }
+    
+    .calculator-results {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: var(--cgt-light-red);
+      border-radius: 5px;
+      border-left: 4px solid var(--cgt-red);
+      display: none;
+    }
+    
+    .result-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      padding-bottom: 10px;
+      border-bottom: 1px dashed #ddd;
+    }
+    
+    .result-item:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+    
+    .repartition-chart {
+      margin-top: 30px;
+      height: 300px;
+      position: relative;
+    }
+    
+    .chart-container {
+      height: 100%;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-around;
+      padding: 0 20px;
+    }
+    
+    .chart-bar {
+      width: 60px;
+      background-color: var(--cgt-red);
+      position: relative;
+      border-radius: 5px 5px 0 0;
+      transition: height 1s ease-in-out;
+    }
+    
+    .chart-bar-label {
+      position: absolute;
+      bottom: -30px;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      font-size: 0.8em;
+    }
+    
+    .chart-bar-value {
+      position: absolute;
+      top: -25px;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      font-weight: bold;
+    }
+    
+    .chart-axis {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background-color: var(--text-dark);
+    }
+    
+    .cogetise-flow {
+      margin-top: 40px;
+    }
+    
+    .flow-diagram {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      margin-top: 20px;
+      position: relative;
+    }
+    
+    .flow-step {
+      width: 180px;
+      padding: 15px;
+      background-color: var(--bg-light);
+      border-radius: 10px;
+      text-align: center;
+      position: relative;
+      margin-bottom: 40px;
+      transition: all 0.3s ease;
+    }
+    
+    .flow-step:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow);
+    }
+    
+    .flow-step-number {
+      position: absolute;
+      top: -15px;
+      left: -15px;
+      width: 30px;
+      height: 30px;
+      background-color: var(--cgt-red);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+    
+    .flow-arrow {
+      position: absolute;
+      top: 50%;
+      left: calc(100% + 10px);
+      width: 30px;
+      height: 2px;
+      background-color: var(--cgt-red);
+    }
+    
+    .flow-arrow::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: -4px;
+      width: 0;
+      height: 0;
+      border-top: 5px solid transparent;
+      border-bottom: 5px solid transparent;
+      border-left: 8px solid var(--cgt-red);
+    }
+    
+    .back-button {
+      display: inline-block;
+      margin-top: 30px;
+      padding: 10px 20px;
+      background-color: var(--cgt-red);
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+    
+    .back-button:hover {
+      background-color: #c30000;
+    }
+    
+    /* Overlay pour la table des matières */
+    .toc-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(3px);
+      z-index: 999;
+      display: none;
+    }
+    
+    .toc-overlay.active {
+      display: block;
+    }
+    
+    /* Table des matières */
+    .toc {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 350px;
+      height: 100%;
+      background-color: var(--card-bg);
+      color: var(--text-dark);
+      z-index: 1000;
+      transition: transform 0.3s ease;
+      box-shadow: var(--shadow);
+      overflow-y: auto;
+      transform: translateX(100%);
+      padding: 0;
+    }
+    
+    .toc.active {
+      transform: translateX(0);
+    }
+    
+    @media (max-width: 768px) {
+      .cotisations-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      
+      .cotisations-actions {
+        margin-top: 10px;
+        flex-direction: column;
+        width: 100%;
+      }
+      
+      .cotisations-actions button {
+        width: 100%;
+      }
+      
+      .flow-diagram {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .flow-step {
+        width: 80%;
+        margin-bottom: 50px;
+      }
+      
+      .flow-arrow {
+        transform: rotate(90deg);
+        top: calc(100% + 10px);
+        left: 50%;
+        width: 30px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="img/logo-cgt.png" alt="Logo CGT Aveyron">
+    <div class="header-text">
+      <h1>Formation CGT – 4 avril 2025</h1>
+      <h2>Cotisations et outils CGT</h2>
+    </div>
+    <!-- Sélecteur de thème -->
+    <div class="theme-switch-wrapper">
+      <label class="theme-switch" for="checkbox">
+        <input type="checkbox" id="checkbox" />
+        <div class="slider"></div>
+      </label>
+      <span class="theme-icon">🌙</span>
+    </div>
+  </header>
+  
+  <!-- Overlay pour la table des matières -->
+  <div id="toc-overlay" class="toc-overlay"></div>
+  
+  <!-- Table des matières -->
+  <div id="table-of-contents" class="toc">
+    <div class="toc-header">
+      <h2>Sommaire</h2>
+      <button id="close-toc" class="close-toc">×</button>
+    </div>
+    <div class="toc-content">
+      <ul>
+        <li><a href="index.html">Retour à la formation principale</a></li>
+        <li><a href="index.html#slide-6">Retour à la slide Cotisations</a></li>
+        <li><a href="#calculateur">Calculateur de cotisation</a></li>
+        <li><a href="#repartition">Répartition des cotisations</a></li>
+        <li><a href="#cogetise">Circuit CoGéTise</a></li>
+        <li><a href="statuts.html">Module : Fonctionnement statutaire</a></li>
+        <li><a href="roles.html">Module : Rôles dans le syndicat</a></li>
+        <li><a href="congres.html">Module : AG et congrès</a></li>
+      </ul>
+    </div>
+  </div>
+  
+  <div class="container">
+    <div class="cotisations-container">
+      <div id="calculateur" class="cotisations-section">
+        <div class="cotisations-header">
+          <h2>Calculateur de cotisation syndicale</h2>
+          <div class="cotisations-actions">
+            <button class="toc-button" type="button" onclick="toggleTOC()">📋 Sommaire</button>
+          </div>
+        </div>
+        
+        <p>La cotisation syndicale représente 1% du salaire net, tous éléments de rémunération confondus. Elle permet de financer l'activité du syndicat et de la CGT à tous les niveaux.</p>
+        
+        <div class="calculator">
+          <h3>Calculez votre cotisation mensuelle :</h3>
+          
+          <div class="calculator-form">
+            <div class="form-group">
+              <label for="salaire">Salaire net mensuel (€) :</label>
+              <input type="number" id="salaire" placeholder="Ex: 1800" min="0" step="10">
+            </div>
+            
+            <button onclick="calculerCotisation()" style="align-self: flex-start; margin-top: 10px; padding: 10px 20px; background-color: var(--cgt-red); color: white; border: none; border-radius: 5px; cursor: pointer;">Calculer</button>
+          </div>
+          
+          <div class="calculator-results" id="calculator-results">
+            <h3>Résultats :</h3>
+            
+            <div class="result-item">
+              <span>Cotisation mensuelle :</span>
+              <strong id="cotisation-mensuelle">0 €</strong>
+            </div>
+            
+            <div class="result-item">
+              <span>Cotisation annuelle :</span>
+              <strong id="cotisation-annuelle">0 €</strong>
+            </div>
+            
+            <div class="result-item">
+              <span>Coût réel après crédit d'impôt (66%) :</span>
+              <strong id="cout-reel">0 €</strong>
+            </div>
+            
+            <div class="result-item">
+              <span>Soit par mois après crédit d'impôt :</span>
+              <strong id="cout-mensuel">0 €</strong>
+            </div>
+          </div>
+        </div>
+        
+        <div class="statut-info">
+          <h3>Importance statutaire du 1%</h3>
+          <div class="statut-content">
+            <p>Les syndicats qui ne respectent pas le taux de cotisation à 1% du salaire net ne sont pas statutaires et ne peuvent pas être considérés comme confédéralisés, car ils ne respectent pas les statuts confédéraux de la CGT.</p>
+            
+            <div class="statut-citation">
+              <h4>Article 34 des statuts confédéraux de la CGT :</h4>
+              <blockquote>
+                "La cotisation syndicale versée régulièrement par le syndiqué matérialise son appartenance à la CGT et constitue un élément essentiel du financement de l'organisation. Elle assure l'indépendance de toute l'organisation. Elle donne les moyens d'une activité syndicale de qualité et permet d'en assurer le développement. <strong>Cette cotisation est égale à 1% du salaire net, toutes primes comprises.</strong>"
+              </blockquote>
+            </div>
+            
+            <p>Le respect de ce taux de cotisation est fondamental pour :</p>
+            <ul>
+              <li>Garantir l'indépendance financière du syndicat</li>
+              <li>Assurer une juste répartition des ressources entre toutes les structures</li>
+              <li>Permettre le développement des activités syndicales à tous les niveaux</li>
+              <li>Respecter les principes de solidarité qui fondent la CGT</li>
+            </ul>
+            
+            <p>Un syndicat qui fixe un taux de cotisation inférieur au 1% ne respecte pas les règles communes et se place en dehors du cadre statutaire confédéral.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div id="repartition" class="cotisations-section">
+        <div class="cotisations-header">
+          <h2>Répartition des cotisations</h2>
+          <div class="cotisations-actions">
+            <button class="toc-button" type="button" onclick="toggleTOC()">📋 Sommaire</button>
+          </div>
+        </div>
+        
+        <p>Les cotisations sont réparties entre différentes structures de la CGT pour financer l'ensemble de l'activité syndicale.</p>
+        
+        <div class="repartition-chart">
+          <div class="chart-container" id="chart-container">
+            <!-- Les barres seront générées par JavaScript -->
+          </div>
+          <div class="chart-axis"></div>
+        </div>
+        
+        <div style="margin-top: 50px; text-align: center;">
+          <button onclick="animateChart()" style="padding: 10px 20px; background-color: var(--cgt-red); color: white; border: none; border-radius: 5px; cursor: pointer;">Afficher la répartition</button>
+        </div>
+      </div>
+      
+      <div id="cogetise" class="cotisations-section">
+        <div class="cotisations-header">
+          <h2>Circuit CoGéTise</h2>
+          <div class="cotisations-actions">
+            <button class="toc-button" type="button" onclick="toggleTOC()">📋 Sommaire</button>
+          </div>
+        </div>
+        
+        <p>CoGéTise est le système de répartition des cotisations au sein de la CGT. Il permet de répartir équitablement les ressources entre les différentes structures.</p>
+        
+        <div class="cogetise-flow">
+          <h3>Le circuit de la cotisation :</h3>
+          
+          <div class="flow-diagram">
+            <div class="flow-step">
+              <div class="flow-step-number">1</div>
+              <h4>Adhérent·e</h4>
+              <p>Verse sa cotisation au syndicat</p>
+              <div class="flow-arrow"></div>
+            </div>
+            
+            <div class="flow-step">
+              <div class="flow-step-number">2</div>
+              <h4>Syndicat</h4>
+              <p>Collecte et reverse à CoGéTise</p>
+              <div class="flow-arrow"></div>
+            </div>
+            
+            <div class="flow-step">
+              <div class="flow-step-number">3</div>
+              <h4>CoGéTise</h4>
+              <p>Centralise et répartit</p>
+              <div class="flow-arrow"></div>
+            </div>
+            
+            <div class="flow-step">
+              <div class="flow-step-number">4</div>
+              <h4>Structures</h4>
+              <p>Fédération, UD, UL, Confédération</p>
+            </div>
+          </div>
+          
+          <div style="margin-top: 40px;">
+            <h3>Pourquoi ce système ?</h3>
+            <ul>
+              <li>Garantir l'indépendance financière de la CGT</li>
+              <li>Assurer une répartition équitable des ressources</li>
+              <li>Permettre à toutes les structures de fonctionner</li>
+              <li>Simplifier la gestion des cotisations</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <a href="index.html" class="back-button">← Retour à la formation principale</a>
+  </div>
+  
+  <script>
+    // Gestion du thème sombre
+    const checkbox = document.getElementById('checkbox');
+    
+    // Vérifier si un thème est enregistré
+    if (localStorage.getItem('theme') === 'dark') {
+      document.body.classList.add('dark-theme');
+      checkbox.checked = true;
+      document.querySelector('.theme-icon').textContent = '☀️';
+    }
+    
+    checkbox.addEventListener('change', function() {
+      if (this.checked) {
+        document.body.classList.add('dark-theme');
+        localStorage.setItem('theme', 'dark');
+        document.querySelector('.theme-icon').textContent = '☀️';
+      } else {
+        document.body.classList.remove('dark-theme');
+        localStorage.setItem('theme', 'light');
+        document.querySelector('.theme-icon').textContent = '🌙';
+      }
+    });
+    
+    // Calculateur de cotisation
+    function calculerCotisation() {
+      const salaire = parseFloat(document.getElementById('salaire').value) || 0;
+      
+      if (salaire === 0) {
+        alert('Veuillez entrer un salaire valide');
+        return;
+      }
+      
+      const cotisationMensuelle = salaire * 0.01; // 1% du salaire net
+      const cotisationAnnuelle = cotisationMensuelle * 12;
+      const coutReel = cotisationAnnuelle * 0.34; // Après crédit d'impôt de 66%
+      const coutMensuel = coutReel / 12;
+      
+      document.getElementById('cotisation-mensuelle').textContent = cotisationMensuelle.toFixed(2) + ' €';
+      document.getElementById('cotisation-annuelle').textContent = cotisationAnnuelle.toFixed(2) + ' €';
+      document.getElementById('cout-reel').textContent = coutReel.toFixed(2) + ' €';
+      document.getElementById('cout-mensuel').textContent = coutMensuel.toFixed(2) + ' €';
+      
+      document.getElementById('calculator-results').style.display = 'block';
+    }
+    
+    // Graphique de répartition
+    function createChart() {
+      const chartContainer = document.getElementById('chart-container');
+      chartContainer.innerHTML = '';
+      
+      const structures = [
+        { name: 'Syndicat', percent: 33 },
+        { name: 'Fédération', percent: 25 },
+        { name: 'Union Locale', percent: 15 },
+        { name: 'Union Départ.', percent: 15 },
+        { name: 'Confédération', percent: 12 }
+      ];
+      
+      structures.forEach(structure => {
+        const bar = document.createElement('div');
+        bar.className = 'chart-bar';
+        bar.style.height = '0px';
+        
+        const label = document.createElement('div');
+        label.className = 'chart-bar-label';
+        label.textContent = structure.name;
+        
+        const value = document.createElement('div');
+        value.className = 'chart-bar-value';
+        value.textContent = structure.percent + '%';
+        
+        bar.appendChild(label);
+        bar.appendChild(value);
+        chartContainer.appendChild(bar);
+        
+        // Stocker le pourcentage pour l'animation
+        bar.dataset.percent = structure.percent;
+      });
+    }
+    
+    function animateChart() {
+      const bars = document.querySelectorAll('.chart-bar');
+      
+      bars.forEach(bar => {
+        const percent = parseFloat(bar.dataset.percent);
+        const height = (percent / 100) * 250; // Hauteur maximale de 250px
+        
+        // Animation de la hauteur
+        setTimeout(() => {
+          bar.style.height = height + 'px';
+        }, 100);
+      });
+    }
+    
+    // Gestion de la table des matières
+    function toggleTOC() {
+      const tocElement = document.getElementById('table-of-contents');
+      const tocOverlay = document.getElementById('toc-overlay');
+      
+      if (tocElement) {
+        tocElement.classList.toggle("active");
+        
+        // Gérer l'overlay
+        if (tocOverlay) {
+          tocOverlay.classList.toggle("active", tocElement.classList.contains("active"));
+          
+          // Ajouter un gestionnaire de clic sur l'overlay pour fermer la TOC
+          if (tocElement.classList.contains("active")) {
+            tocOverlay.onclick = function() {
+              tocElement.classList.remove("active");
+              tocOverlay.classList.remove("active");
+            };
+          }
+        }
+        
+        // Ajouter un gestionnaire pour la touche Escape
+        if (tocElement.classList.contains("active")) {
+          document.addEventListener('keydown', function closeTOCOnEscape(e) {
+            if (e.key === "Escape") {
+              tocElement.classList.remove("active");
+              tocOverlay.classList.remove("active");
+              document.removeEventListener('keydown', closeTOCOnEscape);
+            }
+          });
+        }
+      }
+    }
+    
+    // Initialiser le graphique
+    createChart();
+    
+    // Fermer la TOC avec le bouton de fermeture
+    const closeTocBtn = document.getElementById('close-toc');
+    if (closeTocBtn) {
+      closeTocBtn.addEventListener('click', function() {
+        const tocElement = document.getElementById('table-of-contents');
+        const tocOverlay = document.getElementById('toc-overlay');
+        if (tocElement) {
+          tocElement.classList.remove('active');
+          if (tocOverlay) {
+            tocOverlay.classList.remove('active');
+          }
+        }
+      });
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formation CGT – 4 avril 2025</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header>
+    <img src="img/logo-cgt.png" alt="Logo CGT Aveyron">
+    <div class="header-text">
+      <h1>Formation CGT – 4 avril 2025</h1>
+      <h2>Fonctionnement statutaire d'un syndicat</h2>
+    </div>
+    <!-- Sélecteur de thème -->
+    <div class="theme-switch-wrapper">
+      <label class="theme-switch" for="checkbox">
+        <input type="checkbox" id="checkbox" />
+        <div class="slider"></div>
+      </label>
+      <span class="theme-icon">🌙</span>
+    </div>
+  </header>
+  
+  <!-- Barre de progression en haut -->
+  <div class="top-progress-bar">
+    <div id="top-progress-indicator" class="top-progress-indicator"></div>
+    <div class="slide-counter-mini">
+      <span id="current-slide">1</span>/<span id="total-slides">10</span>
+    </div>
+  </div>
+  
+  <div class="org-info">Organisée par l'Union Départementale des Syndicats CGT de l'Aveyron</div>
+
+  <!-- Overlay pour la table des matières -->
+  <div id="toc-overlay" class="toc-overlay"></div>
+  
+  <!-- Table des matières -->
+  <div id="table-of-contents" class="toc">
+    <div class="toc-header">
+      <h2>Sommaire</h2>
+      <button id="close-toc" class="close-toc">×</button>
+    </div>
+    <div class="toc-content">
+      <ul>
+        <li><a href="#slide-0" class="toc-link" data-slide="0">Accueil et ouverture</a></li>
+        <li><a href="#slide-1" class="toc-link" data-slide="1">Pourquoi un fonctionnement statutaire ?</a></li>
+        <li><a href="statuts.html" class="toc-link">📊 Module interactif : Fonctionnement statutaire</a></li>
+        <li><a href="#slide-2" class="toc-link" data-slide="2">Le rôle des adhérent·es</a></li>
+        <li><a href="#slide-3" class="toc-link" data-slide="3">Élu·es, mandaté·es, responsables</a></li>
+        <li><a href="#slide-4" class="toc-link" data-slide="4">CE, Bureau syndical, SG : qui fait quoi ?</a></li>
+        <li><a href="roles.html" class="toc-link">👥 Module interactif : Rôles dans le syndicat</a></li>
+        <li><a href="#slide-5" class="toc-link" data-slide="5">AG et congrès : lieux de souveraineté</a></li>
+        <li><a href="congres.html" class="toc-link">🗳️ Module interactif : AG et congrès</a></li>
+        <li><a href="#slide-6" class="toc-link" data-slide="6">Cotisations et outils CGT</a></li>
+        <li><a href="cotisations.html" class="toc-link">💰 Module interactif : Cotisations</a></li>
+        <li><a href="#slide-7" class="toc-link" data-slide="7">Articulation syndicat / UL / UD / Fédé</a></li>
+        <li><a href="#slide-8" class="toc-link" data-slide="8">Synthèse et engagements</a></li>
+        <li><a href="#slide-9" class="toc-link" data-slide="9">Glossaire CGT</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Slides de formation -->
+  <div id="slides-container">
+    <section id="slide-0" class="slide">
+      <div class="card">
+        <div class="card-header">
+          <h2>Accueil et ouverture</h2>
+          <div class="slide-actions">
+            <button class="toc-button" type="button" onclick="toggleTOC()">📋 Sommaire</button>
+            <button class="print-button" onclick="printSlide('slide-0')">🖨️ Imprimer</button>
+          </div>
+        </div>
+        <p><strong>🕒 Séquence prévue :</strong> 9h00 - 9h30</p>
+        <div class="objectif">🎯 Objectif : accueil et ouverture de la formation ( café, chocolatine croissant), présenter les objectifs et recueillir les attentes des stagiaires.</div>
+
+        <div class="activity-container">
+          <h3>🧑‍🎓 Activité Stagiaires :</h3>
+          <div class="activity-content">
+            <p>- Présentation individuelle (prénom, syndicat, fonction, expérience)
+- Expression libre : "Pourquoi je suis venu·e aujourd'hui ?"</p>
+          </div>
+        </div>
+
+        <div class="time-control">
+          <div class="time-input">
+            ⏱ Heure de début : <input type="time" id="startHour0" onchange="calcEnd(0)">
+          </div>
+          <div class="time-output">
+            Fin prévue : <span id="end-time0"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section id="slide-1" class="slide">
+      <div class="card">
+        <div class="card-header">
+          <h2>Pourquoi un fonctionnement statutaire ?</h2>
+          <div class="slide-actions">
+            <button class="toc-button" type="button" onclick="toggleTOC()">📋 Sommaire</button>
+            <button class="print-button" onclick="printSlide('slide-1')">🖨️ Imprimer</button>
+            <button class="module-button" onclick="window.location.href='statuts.html'">📊 Module interactif</button>
+          </div>
+        </div>
+        <p><strong>🕒 Séquence prévue :</strong> 9h30 - 10h15</p>
+        <div class="objectif">🎯 Objectif : Comprendre la finalité d'un cadre statutaire dans le syndicat et le lien avec la démocratie syndicale.</div>
+
+        <div class="activity-container">
+          <h3>🧑‍🎓 Activité Stagiaires :</h3>
+          <div class="activity-content">
+            <p>- Travail en binôme : « C'est quoi un syndicat bien organisé pour moi ? »
+- Mise en commun au tableau : idées forces (ex : démocratie, transmission, respect des rôles…)</p>
+          </div>
+        </div>
+
+        <div class="time-control">
+          <div class="time-input">
+            ⏱ Heure de début : <input type="time" id="startHour1" onchange="calcEnd(1)">
+          </div>
+          <div class="time-output">
+            Fin prévue : <span id="end-time1"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section id="slide-2" class="slide">
+      <div class="card">
+        <div class="card-header">
+          <h2>Le rôle des adhérent·es</h2>
+          <div class="slide-actions">
+            <button class="toc-button" type="button" onclick="toggleTOC()">📋 Sommaire</button>
+            <button class="print-button" onclick="printSlide('slide-2')">🖨️ Imprimer</button>
+          </div>
+        </div>
+        <p><strong>🕒 Séquence prévue :</strong> 10h15 - 11h00</p>
+        <div class="objectif">🎯 Objectif : Revaloriser la place des adhérent·es dans l'organisation syndicale.</div>
+
+        <div class="activity-container">
+          <h3>🧑‍🎓 Activité Stagiaires :</h3>
+          <div class="activity-content">
+            <p>- Sous-groupes : « Que peut faire un·e adhérent·e CGT ? »
+- Tri en grand groupe : Droit / Devoir / Pouvoir d'intervention</p>
+          </div>
+        </div>
+
+        <div class="time-control">
+          <div class="time-input">
+            ⏱ Heure de début : <input type="time" id="startHour2" onchange="calcEnd(2)">
+          </div>
+          <div class="time-output">
+            Fin prévue : <span id="end-time2"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section id="slide-3" class="slide">
+      <div class="card">
+        <div class="card-header">
+          <h2>Élu·es, mandaté·es, responsables</h2>
+          <div class="slide-actions">
+            <button class="toc-button" type="button" onclick="toggleTOC()">📋 Sommaire</button>
+            <button class="print-button" onclick="printSlide('slide-3')">🖨️ Imprimer</button>
+          </div>
+        </div>
+        <p><strong>🕒 Séquence prévue :</strong> 11h15 - 12h00</p>
+        <div class="objectif">🎯 Objectif : Clarifier les différents statuts des militant·es dans l'organisation syndicale.</div>
+
+        <div class="activity-container">
+          <h3>🧑‍🎓 Activité Stagiaires :</h3>
+          <div class="activity-content">
+            <p>- Activité collective : tri de rôles : Élu / Mandaté / Désigné / Responsable (avec cartes)
+- Discussion : Comment ces rôles interagissent ? Quels devoirs envers le syndicat ?</p>
+          </div>
+        </div>
+
+        <div class="time-control">
+          <div class="time-input">
+            ⏱ Heure de début : <input type="time" id="startHour3" onchange="calcEnd(3)">
+          </div>
+          <div class="time-output">
+            Fin prévue : <span id="end-time3"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section id="slide-4" class="slide">
+      <div class="card">
+        <div class="card-header">
+          <h2>CE, Bureau syndical, SG : qui fait quoi ?</h2>
+          <div class="slide-actions">
+            <button class="toc-button" type="button" onclick="toggleTOC()">📋 Sommaire</button>
+            <button class="print-button" onclick="printSlide('slide-4')">🖨️ Imprimer</button>
+            <button class="module-button" onclick="window.location.href='roles.html'">👥 Module interactif</button>
+          </div>
+        </div>
+        <p><strong>🕒 Séquence prévue :</strong> 12h00 - 12h30</p>
+        <div class="objectif">🎯 Objectif : Comprendre les structures de direction d'un syndicat CGT.</div>
+
+        <div class="activity-container">
+          <h3>🧑‍🎓 Activité Stagiaires :</h3>
+          <div class="activity-content">
+            <p>- Activité "puzzle organigramme" : rôles et missions du Bureau, CE, SG, AG
+- Débat guidé : Qui impulse ? Qui décide ? Qui contrôle ?</p>
+          </div>
+        </div>
+
+        <div class="time-control">
+          <div class="time-input">
+            ⏱ Heure de début : <input type="time" id="startHour4" onchange="calcEnd(4)">
+          </div>
+          <div class="time-output">
+            Fin prévue : <span id="end-time4"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section id="slide-5" class="slide">
+      <div class="card">
+        <div class="card-header">
+          <h2>AG et congrès : lieux de souveraineté</h2>
+          <div class="slide-actions">
+            <button class="toc-button" type="button" onclick="toggleTOC()">📋 Sommaire</button>
+            <button class="print-button" onclick="printSlide('slide-5')">🖨️ Imprimer</button>
+            <button class="module-button" onclick="window.location.href='congres.html'">🗳️ Module interactif</button>
+          </div>
+        </div>
+        <p><strong>🕒 Séquence prévue :</strong> 13h30 - 14h30</p>
+        <div class="objectif">🎯 Objectif : Comprendre les mécanismes de prise de décision dans la CGT.</div>
+
+        <div class="activity-container">
+          <h3>🧑‍🎓 Activité Stagiaires :</h3>
+          <div class="activity-content">
+            <p>- En groupes : construire un ordre du jour pour un congrès syndical
+- Simulation d'un vote (ex : élection du bureau ou adoption de rapport d'activité)</p>
+          </div>
+        </div>
+
+        <div class="time-control">
+          <div class="time-input">
+            ⏱ Heure de début : <input type="time" id="startHour5" onchange="calcEnd(5)">
+          </div>
+          <div class="time-output">
+            Fin prévue : <span id="end-time5"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section id="slide-6" class="slide">
+      <div class="card">
+        <div class="card-header">
+          <h2>Cotisations et outils CGT</h2>
+          <div class="slide-actions">
+            <button class="toc-button" type="button" onclick="toggleTOC()">📋 Sommaire</button>
+            <button class="print-button" onclick="printSlide('slide-6')">🖨️ Imprimer</button>
+            <button class="module-button" onclick="window.location.href='cotisations.html'">💰 Module interactif</button>
+          </div>
+        </div>
+        <p><strong>🕒 Séquence prévue :</strong> 14h30 - 15h15</p>
+        <div class="objectif">🎯 Objectif : Comprendre les ressources du syndicat et les outils pour les gérer.</div>
+
+        <div class="activity-container">
+          <h3>🧑‍🎓 Activité Stagiaires :</h3>
+          <div class="activity-content">
+            <p>- Réflexion collective : « Où va l'argent de la cotisation ? »
+- Mise en commun d'idées puis explication du circuit CoGéTise</p>
+          </div>
+        </div>
+
+        <div class="time-control">
+          <div class="time-input">
+            ⏱ Heure de début : <input type="time" id="startHour6" onchange="calcEnd(6)">
+          </div>
+          <div class="time-output">
+            Fin prévue : <span id="end-time6"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section id="slide-7" class="slide">
+      <div class="card">
+        <div class="card-header">
+          <h2>Articulation syndicat / UL / UD / Fédé</h2>
+          <div class="slide-actions">
+            <button class="toc-button" type="button" onclick="toggleTOC()">📋 Sommaire</button>
+            <button class="print-button" onclick="printSlide('slide-7')">🖨️ Imprimer</button>
+          </div>
+        </div>
+        <p><strong>🕒 Séquence prévue :</strong> 15h30 - 16h15</p>
+        <div class="objectif">🎯 Objectif : Comprendre la structure confédérale de la CGT.</div>
+
+        <div class="activity-container">
+          <h3>🧑‍🎓 Activité Stagiaires :</h3>
+          <div class="activity-content">
+            <p>- Jeu de correspondance : qui fait quoi ? (cartes rôles / structures)
+- Débat guidé : vers qui se tourner en cas de besoin ?</p>
+          </div>
+        </div>
+
+        <div class="time-control">
+          <div class="time-input">
+            ⏱ Heure de début : <input type="time" id="startHour7" onchange="calcEnd(7)">
+          </div>
+          <div class="time-output">
+            Fin prévue : <span id="end-time7"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section id="slide-8" class="slide">
+      <div class="card">
+        <div class="card-header">
+          <h2>Synthèse et engagements</h2>
+          <div class="slide-actions">
+            <button class="toc-button" type="button" onclick="toggleTOC()">📋 Sommaire</button>
+            <button class="print-button" onclick="printSlide('slide-8')">🖨️ Imprimer</button>
+          </div>
+        </div>
+        <p><strong>🕒 Séquence prévue :</strong> 16h15 - 17h00</p>
+        <div class="objectif">🎯 Objectif : Fixer les acquis de la journée et favoriser l'engagement concret post-formation.</div>
+
+        <div class="activity-container">
+          <h3>🧑‍🎓 Activité Stagiaires :</h3>
+          <div class="activity-content">
+            <p>- Chacun écrit un engagement personnel à mettre en place dans son syndicat
+- Tour de parole libre : "Je repars avec…"</p>
+          </div>
+        </div>
+
+        <div class="time-control">
+          <div class="time-input">
+            ⏱ Heure de début : <input type="time" id="startHour8" onchange="calcEnd(8)">
+          </div>
+          <div class="time-output">
+            Fin prévue : <span id="end-time8"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section id="slide-9" class="slide">
+      <div class="card">
+        <div class="card-header">
+          <h2>📚 Glossaire CGT</h2>
+          <div class="slide-actions">
+            <button class="toc-button" type="button" onclick="toggleTOC()">📋 Sommaire</button>
+            <button class="print-button" onclick="printSlide('slide-9')">🖨️ Imprimer</button>
+          </div>
+        </div>
+        
+        <div class="glossary">
+          <div class="glossary-item">
+            <h3>Adhérent·e</h3>
+            <p>Toute personne syndiquée à la CGT, base de l'organisation.</p>
+          </div>
+          
+          <div class="glossary-item">
+            <h3>Élu·e</h3>
+            <p>Personne élue par les salarié·es lors d'élections professionnelles (ex : CSE).</p>
+          </div>
+          
+          <div class="glossary-item">
+            <h3>Mandaté·e</h3>
+            <p>Militant·e désigné·e par le syndicat pour représenter la CGT dans une instance extérieure.</p>
+          </div>
+          
+          <div class="glossary-item">
+            <h3>Responsable syndical</h3>
+            <p>Militant·e élu·e ou désigné·e à la direction du syndicat (ex : SG, trésorier·e).</p>
+          </div>
+          
+          <div class="glossary-item">
+            <h3>AG (Assemblée Générale)</h3>
+            <p>Réunion de tous les syndiqué·es du syndicat, instance de décision souveraine.</p>
+          </div>
+          
+          <div class="glossary-item">
+            <h3>Congrès</h3>
+            <p>Temps fort statutaire pour définir l'orientation, élire la direction et faire le bilan.</p>
+          </div>
+          
+          <div class="glossary-item">
+            <h3>CE (Commission Exécutive)</h3>
+            <p>Instance élue qui prend les décisions collectives entre deux AG.</p>
+          </div>
+          
+          <div class="glossary-item">
+            <h3>Bureau syndical</h3>
+            <p>Équipe restreinte chargée d'animer au quotidien les décisions de la CE.</p>
+          </div>
+          
+          <div class="glossary-item">
+            <h3>UL (Union Locale)</h3>
+            <p>Structure CGT sur un territoire, proche des syndicats locaux.</p>
+          </div>
+          
+          <div class="glossary-item">
+            <h3>UD (Union Départementale)</h3>
+            <p>Structure CGT à l'échelle du département, appui aux syndicats et formation.</p>
+          </div>
+          
+          <div class="glossary-item">
+            <h3>FD (Fédération)</h3>
+            <p>Structure professionnelle regroupant les syndicats d'une même branche d'activité.</p>
+          </div>
+          
+          <div class="glossary-item">
+            <h3>Confédération</h3>
+            <p>Organisation nationale de la CGT, coordonne l'ensemble des structures et définit les orientations générales.</p>
+          </div>
+          
+          <div class="glossary-item">
+            <h3>CSE (Comité Social et Économique)</h3>
+            <p>Instance représentative du personnel dans l'entreprise, remplaçant les anciennes instances (CE, DP, CHSCT).</p>
+          </div>
+          
+          <div class="glossary-item">
+            <h3>COGETISE</h3>
+            <p>Système de répartition des cotisations syndicales entre les différentes structures de la CGT.</p>
+          </div>
+          
+          <div class="glossary-item">
+            <h3>Statuts</h3>
+            <p>Document fondamental définissant les règles de fonctionnement d'un syndicat, ses objectifs et son organisation.</p>
+          </div>
+          
+          <div class="glossary-item">
+            <h3>Secrétaire Général·e</h3>
+            <p>Premier·ère responsable d'un syndicat, élu·e pour coordonner l'activité et représenter l'organisation.</p>
+          </div>
+          
+          <div class="glossary-item">
+            <h3>Trésorier·ère</h3>
+            <p>Responsable de la gestion financière du syndicat, des cotisations et de la politique financière.</p>
+          </div>
+          
+          <div class="glossary-item">
+            <h3>Syndicalisation</h3>
+            <p>Action de recruter de nouveaux adhérents, élément essentiel du renforcement de l'organisation.</p>
+          </div>
+          
+          <div class="glossary-item">
+            <h3>Cotisation</h3>
+            <p>Contribution financière des adhérents (1% du salaire net), ressource principale du syndicat.</p>
+          </div>
+          
+          <div class="glossary-item">
+            <h3>Démocratie syndicale</h3>
+            <p>Principe fondamental de la CGT garantissant la participation des adhérents aux décisions et orientations.</p>
+          </div>
+          
+          <div class="glossary-item">
+            <h3>Mandat</h3>
+            <p>Mission confiée par le syndicat à un·e militant·e pour le représenter dans une instance ou une négociation.</p>
+          </div>
+          
+          <div class="glossary-item">
+            <h3>Formation syndicale</h3>
+            <p>Dispositif d'éducation permettant aux militants d'acquérir des connaissances et compétences nécessaires à l'action syndicale.</p>
+          </div>
+          
+          <div class="glossary-item">
+            <h3>Revendication</h3>
+            <p>Demande formulée par le syndicat pour améliorer les conditions de travail ou les droits des salariés.</p>
+          </div>
+          
+          <div class="glossary-item">
+            <h3>Action collective</h3>
+            <p>Mobilisation des salariés (grève, manifestation, pétition) pour faire aboutir des revendications.</p>
+          </div>
+          
+          <div class="glossary-item">
+            <h3>Négociation collective</h3>
+            <p>Processus de discussion entre employeurs et syndicats pour établir des accords sur les conditions de travail.</p>
+          </div>
+          
+          <div class="glossary-item">
+            <h3>Représentativité</h3>
+            <p>Capacité légale d'un syndicat à représenter les salariés, mesurée par les résultats aux élections professionnelles.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Bouton pour accéder aux modules interactifs -->
+  <div class="modules-navigation">
+    <h3>Modules interactifs</h3>
+    <div class="modules-buttons">
+      <a href="statuts.html" class="module-nav-button">
+        <span class="module-icon">📊</span>
+        <span class="module-title">Fonctionnement statutaire</span>
+      </a>
+      <a href="roles.html" class="module-nav-button">
+        <span class="module-icon">👥</span>
+        <span class="module-title">Rôles dans le syndicat</span>
+      </a>
+      <a href="congres.html" class="module-nav-button">
+        <span class="module-icon">🗳️</span>
+        <span class="module-title">AG et congrès</span>
+      </a>
+      <a href="cotisations.html" class="module-nav-button">
+        <span class="module-icon">💰</span>
+        <span class="module-title">Cotisations</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Indicateur de progression -->
+  <div class="progress-bar">
+    <div id="progress-indicator" class="progress-indicator"></div>
+  </div>
+
+  <div class="controls">
+    <button id="prev-btn" onclick="prev()">⬅ Précédent</button>
+    <button id="resources-btn" type="button">📚 Ressources</button>
+    <button id="glossary-btn" type="button">📖 Glossaire</button>
+    <button onclick="window.location.href='roles.html'" type="button">👥 Rôles</button>
+    <button id="next-btn" onclick="next()">Suivant ➡</button>
+  </div>
+
+  <!-- Modal des ressources -->
+  <div id="resources-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Documents de formation</h2>
+        <span class="close-modal" id="close-resources">&times;</span>
+      </div>
+      <div class="modal-body">
+        <div class="resources-container">
+          <div class="resources-category">
+            <h3>Guides et Supports</h3>
+            <ul class="resources-list">
+              <li><a href="rsc/2023_QuestCeQueSynidcat_Livret_SR.pdf" target="_blank">Qu'est-ce qu'un syndicat ? (Livret)</a></li>
+              <li><a href="rsc/GuideOrga2025UD69.pdf" target="_blank">Guide d'organisation 2025</a></li>
+              <li><a href="rsc/ModledeStatutsyndicatscomment08_2024.pdf" target="_blank">Modèle de statuts syndicaux commentés (2024)</a></li>
+              <li><a href="rsc/Support_Stagiaires_Objectifs_CGT_4 avril_2025.docx" target="_blank">Support stagiaires - Objectifs CGT</a></li>
+              <li><a href="rsc/role de chacun dans le syndicats.docx" target="_blank">Rôle de chacun dans le syndicat</a></li>
+            </ul>
+          </div>
+          
+          <div class="resources-category">
+            <h3>Chartes et règlements</h3>
+            <ul class="resources-list">
+              <li><a href="rsc/charte_de_l_elu_et_mandate_1 (1).pdf" target="_blank">Charte de l'élu et du mandaté</a></li>
+              <li><a href="rsc/charte_egalite_FEMME HOMME.pdf" target="_blank">Charte égalité Femme-Homme</a></li>
+              <li><a href="rsc/charte_vie_syndicale_cgt (2).pdf" target="_blank">Charte vie syndicale CGT</a></li>
+            </ul>
+          </div>
+          
+          <div class="resources-category">
+            <h3>Organisation et fonctionnement</h3>
+            <ul class="resources-list">
+              <li><a href="rsc/Plaquette COGETISE dijon 20-03-19.pdf" target="_blank">Plaquette COGETISE</a></li>
+              <li><a href="rsc/prgrame complet dérouler de la journée à lire.docx" target="_blank">Programme complet - Déroulé de la journée</a></li>
+              <li><a href="rsc/Aide_Memoire_Formateurs_CGT_4 avril_2025.docx" target="_blank">Aide-mémoire formateurs CGT</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal du glossaire -->
+  <div id="glossary-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Glossaire syndical</h2>
+        <span class="close-modal" id="close-glossary">&times;</span>
+      </div>
+      <div class="modal-body">
+        <div class="glossary-container">
+          <div class="glossary-search">
+            <input type="text" id="glossary-search" placeholder="Rechercher un terme...">
+          </div>
+          <div class="glossary-alphabet">
+            <span class="letter active" data-letter="all">Tous</span>
+            <span class="letter" data-letter="A">A</span>
+            <span class="letter" data-letter="B">B</span>
+            <span class="letter" data-letter="C">C</span>
+            <span class="letter" data-letter="D">D</span>
+            <span class="letter" data-letter="E">E</span>
+            <span class="letter" data-letter="F">F</span>
+            <span class="letter" data-letter="G">G</span>
+            <span class="letter" data-letter="M">M</span>
+            <span class="letter" data-letter="N">N</span>
+            <span class="letter" data-letter="R">R</span>
+            <span class="letter" data-letter="S">S</span>
+            <span class="letter" data-letter="T">T</span>
+            <span class="letter" data-letter="U">U</span>
+          </div>
+          <div class="glossary-list">
+            <div class="glossary-item" data-letter="A">
+              <div class="glossary-term">
+                <h3>Action collective</h3>
+                <div class="definition">Mobilisation des salariés (grève, manifestation, pétition) pour faire aboutir des revendications.</div>
+              </div>
+            </div>
+            
+            <div class="glossary-item" data-letter="A">
+              <div class="glossary-term">
+                <h3>Adhérent·e</h3>
+                <div class="definition">Toute personne syndiquée à la CGT, base de l'organisation.</div>
+              </div>
+            </div>
+            
+            <div class="glossary-item" data-letter="A">
+              <div class="glossary-term">
+                <h3>AG (Assemblée Générale)</h3>
+                <div class="definition">Réunion de tous les syndiqué·es du syndicat, instance de décision souveraine.</div>
+              </div>
+            </div>
+            
+            <div class="glossary-item" data-letter="B">
+              <div class="glossary-term">
+                <h3>Bureau syndical</h3>
+                <div class="definition">Équipe restreinte chargée d'animer au quotidien les décisions de la CE.</div>
+              </div>
+            </div>
+            
+            <div class="glossary-item" data-letter="C">
+              <div class="glossary-term">
+                <h3>CE (Commission Exécutive)</h3>
+                <div class="definition">Instance élue qui prend les décisions collectives entre deux AG.</div>
+              </div>
+            </div>
+            
+            <div class="glossary-item" data-letter="C">
+              <div class="glossary-term">
+                <h3>COGETISE</h3>
+                <div class="definition">Système de répartition des cotisations syndicales entre les différentes structures de la CGT.</div>
+              </div>
+            </div>
+            
+            <div class="glossary-item" data-letter="C">
+              <div class="glossary-term">
+                <h3>Confédération</h3>
+                <div class="definition">Organisation nationale de la CGT, coordonne l'ensemble des structures et définit les orientations générales.</div>
+              </div>
+            </div>
+            
+            <div class="glossary-item" data-letter="C">
+              <div class="glossary-term">
+                <h3>Congrès</h3>
+                <div class="definition">Temps fort statutaire pour définir l'orientation, élire la direction et faire le bilan.</div>
+              </div>
+            </div>
+            
+            <div class="glossary-item" data-letter="C">
+              <div class="glossary-term">
+                <h3>Cotisation</h3>
+                <div class="definition">Contribution financière des adhérents (1% du salaire net), ressource principale du syndicat.</div>
+              </div>
+            </div>
+            
+            <div class="glossary-item" data-letter="C">
+              <div class="glossary-term">
+                <h3>CSE (Comité Social et Économique)</h3>
+                <div class="definition">Instance représentative du personnel dans l'entreprise, remplaçant les anciennes instances (CE, DP, CHSCT).</div>
+              </div>
+            </div>
+            
+            <div class="glossary-item" data-letter="D">
+              <div class="glossary-term">
+                <h3>Démocratie syndicale</h3>
+                <div class="definition">Principe fondamental de la CGT garantissant la participation des adhérents aux décisions et orientations.</div>
+              </div>
+            </div>
+            
+            <div class="glossary-item" data-letter="E">
+              <div class="glossary-term">
+                <h3>Élu·e</h3>
+                <div class="definition">Personne élue par les salarié·es lors d'élections professionnelles (ex : CSE).</div>
+              </div>
+            </div>
+            
+            <div class="glossary-item" data-letter="F">
+              <div class="glossary-term">
+                <h3>FD (Fédération)</h3>
+                <div class="definition">Structure professionnelle regroupant les syndicats d'une même branche d'activité.</div>
+              </div>
+            </div>
+            
+            <div class="glossary-item" data-letter="F">
+              <div class="glossary-term">
+                <h3>Formation syndicale</h3>
+                <div class="definition">Dispositif d'éducation permettant aux militants d'acquérir des connaissances et compétences nécessaires à l'action syndicale.</div>
+              </div>
+            </div>
+            
+            <div class="glossary-item" data-letter="M">
+              <div class="glossary-term">
+                <h3>Mandat</h3>
+                <div class="definition">Mission confiée par le syndicat à un·e militant·e pour le représenter dans une instance ou une négociation.</div>
+              </div>
+            </div>
+            
+            <div class="glossary-item" data-letter="M">
+              <div class="glossary-term">
+                <h3>Mandaté·e</h3>
+                <div class="definition">Militant·e désigné·e par le syndicat pour représenter la CGT dans une instance extérieure.</div>
+              </div>
+            </div>
+            
+            <div class="glossary-item" data-letter="N">
+              <div class="glossary-term">
+                <h3>Négociation collective</h3>
+                <div class="definition">Processus de discussion entre employeurs et syndicats pour établir des accords sur les conditions de travail.</div>
+              </div>
+            </div>
+            
+            <div class="glossary-item" data-letter="R">
+              <div class="glossary-term">
+                <h3>Représentativité</h3>
+                <div class="definition">Capacité légale d'un syndicat à représenter les salariés, mesurée par les résultats aux élections professionnelles.</div>
+              </div>
+            </div>
+            
+            <div class="glossary-item" data-letter="R">
+              <div class="glossary-term">
+                <h3>Responsable syndical</h3>
+                <div class="definition">Militant·e élu·e ou désigné·e à la direction du syndicat (ex : SG, trésorier·e).</div>
+              </div>
+            </div>
+            
+            <div class="glossary-item" data-letter="R">
+              <div class="glossary-term">
+                <h3>Revendication</h3>
+                <div class="definition">Demande formulée par le syndicat pour améliorer les conditions de travail ou les droits des salariés.</div>
+              </div>
+            </div>
+            
+            <div class="glossary-item" data-letter="S">
+              <div class="glossary-term">
+                <h3>Secrétaire Général·e</h3>
+                <div class="definition">Premier·ère responsable d'un syndicat, élu·e pour coordonner l'activité et représenter l'organisation.</div>
+              </div>
+            </div>
+            
+            <div class="glossary-item" data-letter="S">
+              <div class="glossary-term">
+                <h3>Statuts</h3>
+                <div class="definition">Document fondamental définissant les règles de fonctionnement d'un syndicat, ses objectifs et son organisation.</div>
+              </div>
+            </div>
+            
+            <div class="glossary-item" data-letter="S">
+              <div class="glossary-term">
+                <h3>Syndicalisation</h3>
+                <div class="definition">Action de recruter de nouveaux adhérents, élément essentiel du renforcement de l'organisation.</div>
+              </div>
+            </div>
+            
+            <div class="glossary-item" data-letter="T">
+              <div class="glossary-term">
+                <h3>Trésorier·ère</h3>
+                <div class="definition">Responsable de la gestion financière du syndicat, des cotisations et de la politique financière.</div>
+              </div>
+            </div>
+            
+            <div class="glossary-item" data-letter="U">
+              <div class="glossary-term">
+                <h3>UD (Union Départementale)</h3>
+                <div class="definition">Structure CGT à l'échelle du département, appui aux syndicats et formation.</div>
+              </div>
+            </div>
+            
+            <div class="glossary-item" data-letter="U">
+              <div class="glossary-term">
+                <h3>UL (Union Locale)</h3>
+                <div class="definition">Structure CGT sur un territoire, proche des syndicats locaux.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PDF Export Modal -->
+  <div id="pdf-modal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal">&times;</span>
+      <h2>Exporter en PDF</h2>
+      <p>Pour imprimer ou exporter en PDF cette séquence :</p>
+      <ol>
+        <li>Utilisez la fonction d'impression de votre navigateur (Ctrl+P)</li>
+        <li>Sélectionnez "Enregistrer au format PDF" comme destination</li>
+        <li>Cliquez sur "Enregistrer"</li>
+      </ol>
+      <button id="print-btn" class="print-modal-btn">Imprimer maintenant</button>
+    </div>
+  </div>
+
+  <script src="js/script.js"></script>
+  <script>
+    // Initialisation du glossaire et des boutons de sommaire
+    document.addEventListener("DOMContentLoaded", function() {
+      initGlossary();
+      
+      // Initialiser les boutons de sommaire
+      const tocBtns = document.querySelectorAll('.toc-button');
+      tocBtns.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+          e.preventDefault();
+          toggleTOC();
+        });
+      });
+      
+      // Fermer la table des matières
+      const closeTocBtn = document.getElementById('close-toc');
+      if (closeTocBtn) {
+        closeTocBtn.addEventListener('click', function() {
+          const tocElement = document.getElementById('table-of-contents');
+          const tocOverlay = document.getElementById('toc-overlay');
+          if (tocElement) {
+            tocElement.classList.remove("active");
+            if (tocOverlay) {
+              tocOverlay.classList.remove("active");
+            }
+          }
+        });
+      }
+      
+      // Ajouter un gestionnaire pour fermer la TOC quand on appuie sur Escape
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          const tocElement = document.getElementById('table-of-contents');
+          const tocOverlay = document.getElementById('toc-overlay');
+          if (tocElement && tocElement.classList.contains('active')) {
+            tocElement.classList.remove('active');
+            if (tocOverlay) {
+              tocOverlay.classList.remove('active');
+            }
+          }
+        }
+      });
+      
+      // Ajouter un gestionnaire pour fermer la TOC quand on clique sur l'overlay
+      const tocOverlay = document.getElementById('toc-overlay');
+      if (tocOverlay) {
+        tocOverlay.addEventListener('click', function() {
+          const tocElement = document.getElementById('table-of-contents');
+          if (tocElement) {
+            tocElement.classList.remove('active');
+            tocOverlay.classList.remove('active');
+          }
+        });
+      }
+    });
+    
+    // Fonction pour basculer l'affichage de la table des matières
+    function toggleTOC() {
+      const tocElement = document.getElementById('table-of-contents');
+      const tocOverlay = document.getElementById('toc-overlay');
+      
+      if (tocElement) {
+        tocElement.classList.toggle("active");
+        if (tocOverlay) {
+          tocOverlay.classList.toggle("active", tocElement.classList.contains("active"));
+        }
+      }
+    }
+    
+    // Fonction pour initialiser le glossaire
+    function initGlossary() {
+      // Code du glossaire...
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fonctionnement statutaire CGT</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/roles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    .statuts-container {
+      max-width: 1200px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: var(--card-bg);
+      border-radius: 10px;
+      box-shadow: var(--shadow);
+      color: var(--text-dark);
+    }
+    
+    .statuts-intro {
+      text-align: center;
+      margin-bottom: 30px;
+      padding: 20px;
+      border-bottom: 2px solid var(--cgt-light-red);
+    }
+    
+    .statuts-intro h2 {
+      color: var(--cgt-red);
+      font-size: 28px;
+      margin-bottom: 15px;
+    }
+    
+    .statuts-timeline {
+      position: relative;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 40px 0;
+    }
+    
+    .statuts-timeline::before {
+      content: '';
+      position: absolute;
+      width: 6px;
+      background-color: var(--cgt-red);
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      margin-left: -3px;
+      border-radius: 10px;
+    }
+    
+    .timeline-item {
+      padding: 10px 40px;
+      position: relative;
+      width: 50%;
+      box-sizing: border-box;
+      margin-bottom: 30px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.5s ease;
+    }
+    
+    .timeline-item.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .timeline-item:nth-child(odd) {
+      left: 0;
+      text-align: right;
+    }
+    
+    .timeline-item:nth-child(even) {
+      left: 50%;
+      text-align: left;
+    }
+    
+    .timeline-item::after {
+      content: '';
+      position: absolute;
+      width: 25px;
+      height: 25px;
+      background-color: var(--cgt-red);
+      border: 4px solid var(--card-bg);
+      border-radius: 50%;
+      top: 15px;
+      z-index: 1;
+    }
+    
+    .timeline-item:nth-child(odd)::after {
+      right: -17px;
+    }
+    
+    .timeline-item:nth-child(even)::after {
+      left: -17px;
+    }
+    
+    .timeline-content {
+      padding: 20px;
+      background-color: var(--bg-light);
+      border-radius: 10px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    
+    .timeline-content:hover {
+      transform: scale(1.03);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+    
+    .timeline-content h3 {
+      color: var(--cgt-red);
+      margin-bottom: 10px;
+      font-size: 20px;
+    }
+    
+    .timeline-content p {
+      margin: 0;
+      line-height: 1.5;
+    }
+    
+    .timeline-details {
+      display: none;
+      margin-top: 15px;
+      padding-top: 15px;
+      border-top: 1px dashed rgba(0,0,0,0.1);
+    }
+    
+    .timeline-details.active {
+      display: block;
+      animation: fadeIn 0.5s ease;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    .statuts-actions {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 30px;
+      flex-wrap: wrap;
+    }
+    
+    .statuts-actions button {
+      background-color: var(--card-bg);
+      color: var(--cgt-red);
+      border: 2px solid var(--cgt-red);
+      padding: 12px 25px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .statuts-actions button:hover {
+      background-color: var(--cgt-red);
+      color: white;
+      transform: translateY(-3px);
+      box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+    }
+    
+    .statuts-quiz {
+      background-color: var(--bg-light);
+      border-radius: 10px;
+      padding: 30px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      margin: 30px auto;
+      max-width: 800px;
+      display: none;
+    }
+    
+    .statuts-quiz.active {
+      display: block;
+      animation: fadeIn 0.5s ease;
+    }
+    
+    .drag-drop-container {
+      margin-top: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    
+    .drag-items {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+      justify-content: center;
+    }
+    
+    .drag-item {
+      padding: 10px 15px;
+      background-color: var(--card-bg);
+      border: 2px solid var(--cgt-red);
+      border-radius: 8px;
+      cursor: grab;
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+    
+    .drag-item:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+    }
+    
+    .drag-item.dragging {
+      opacity: 0.5;
+      cursor: grabbing;
+    }
+    
+    .drop-zones {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    
+    .drop-zone {
+      padding: 15px;
+      background-color: rgba(0,0,0,0.05);
+      border: 2px dashed rgba(0,0,0,0.2);
+      border-radius: 8px;
+      min-height: 50px;
+      display: flex;
+      align-items: center;
+      transition: all 0.2s ease;
+    }
+    
+    .drop-zone.highlight {
+      background-color: rgba(227, 6, 19, 0.1);
+      border-color: var(--cgt-red);
+    }
+    
+    .drop-zone-label {
+      font-weight: bold;
+      margin-right: 15px;
+      min-width: 200px;
+    }
+    
+    .drop-zone-items {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    
+    .quiz-feedback {
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 8px;
+      font-weight: bold;
+      display: none;
+    }
+    
+    .quiz-feedback.correct {
+      background-color: rgba(40, 167, 69, 0.1);
+      color: #28a745;
+      border: 1px solid #28a745;
+    }
+    
+    .quiz-feedback.incorrect {
+      background-color: rgba(220, 53, 69, 0.1);
+      color: #dc3545;
+      border: 1px solid #dc3545;
+    }
+    
+    @media (max-width: 768px) {
+      .statuts-timeline::before {
+        left: 40px;
+      }
+      
+      .timeline-item {
+        width: 100%;
+        padding-left: 70px;
+        padding-right: 20px;
+        text-align: left;
+      }
+      
+      .timeline-item:nth-child(odd) {
+        left: 0;
+        text-align: left;
+      }
+      
+      .timeline-item:nth-child(even) {
+        left: 0;
+      }
+      
+      .timeline-item:nth-child(odd)::after {
+        left: 28px;
+        right: auto;
+      }
+      
+      .timeline-item:nth-child(even)::after {
+        left: 28px;
+      }
+      
+      .statuts-actions {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .statuts-actions button {
+        width: 100%;
+      }
+    }
+    
+    /* Overlay pour la table des matières */
+    .toc-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(3px);
+      z-index: 999;
+      display: none;
+    }
+    
+    .toc-overlay.active {
+      display: block;
+    }
+    
+    /* Table des matières */
+    .toc {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 350px;
+      height: 100%;
+      background-color: var(--card-bg);
+      color: var(--text-dark);
+      z-index: 1000;
+      transition: transform 0.3s ease;
+      box-shadow: var(--shadow);
+      overflow-y: auto;
+      transform: translateX(100%);
+      padding: 0;
+    }
+    
+    .toc.active {
+      transform: translateX(0);
+    }
+    
+    .toc-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      background-color: var(--cgt-red);
+      color: var(--text-light);
+      padding: 15px;
+    }
+    
+    .close-toc {
+      background-color: transparent;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+    }
+    
+    .toc-content ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .toc-content li {
+      margin-bottom: 10px;
+    }
+    
+    .toc-content a {
+      text-decoration: none;
+      color: var(--text-dark);
+    }
+    
+    .toc-content a:hover {
+      color: var(--cgt-red);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <img src="img/logo-cgt.png" alt="Logo CGT">
+    </div>
+    <h1>Formation CGT - Fonctionnement statutaire</h1>
+    <div class="theme-toggle">
+      <label class="switch">
+        <input type="checkbox" id="theme-switch">
+        <div class="slider"></div>
+      </label>
+      <span class="theme-icon">🌙</span>
+    </div>
+  </header>
+
+  <div class="top-progress-bar">
+    <div id="top-progress-indicator" class="top-progress-indicator" style="width: 100%;"></div>
+  </div>
+
+  <div class="org-info">Organisée par l'Union Départementale des Syndicats CGT de l'Aveyron</div>
+
+  <!-- Table des matières -->
+  <div id="table-of-contents" class="toc">
+    <div class="toc-header">
+      <h2>Sommaire</h2>
+      <button id="close-toc" class="close-toc">×</button>
+    </div>
+    <div class="toc-content">
+      <ul>
+        <li><a href="index.html">Retour à la formation principale</a></li>
+        <li><a href="index.html#slide-1">Retour à la slide Fonctionnement statutaire</a></li>
+        <li><a href="#exploration">Mode exploration</a></li>
+        <li><a href="#quiz">Mode quiz</a></li>
+        <li><a href="roles.html">Module : Rôles dans le syndicat</a></li>
+        <li><a href="congres.html">Module : AG et congrès</a></li>
+        <li><a href="cotisations.html">Module : Cotisations</a></li>
+      </ul>
+    </div>
+  </div>
+  
+  <!-- Overlay pour la table des matières -->
+  <div class="toc-overlay" id="toc-overlay"></div>
+
+  <div class="statuts-container">
+    <div class="statuts-intro">
+      <h2>Pourquoi un fonctionnement statutaire ?</h2>
+      <p>Découvrez l'importance des statuts dans le fonctionnement démocratique d'un syndicat CGT. Explorez la chronologie des étapes clés et participez à des activités interactives pour mieux comprendre le rôle des statuts.</p>
+      
+      <div class="mode-selector">
+        <button id="exploration-mode" class="mode-btn active">Mode exploration</button>
+        <button id="quiz-mode" class="mode-btn">Mode activité</button>
+      </div>
+      
+      <div class="slide-actions">
+        <button class="toc-button" type="button" onclick="toggleTOC()">📋 Sommaire</button>
+        <button class="print-button" onclick="window.print()">🖨️ Imprimer</button>
+      </div>
+    </div>
+
+    <div class="statuts-timeline">
+      <div class="timeline-item">
+        <div class="timeline-content" data-id="1">
+          <h3>Définition des statuts</h3>
+          <p>Les statuts sont la constitution du syndicat, ils définissent les règles fondamentales.</p>
+          <div class="timeline-details" id="details-1">
+            <p>Les statuts d'un syndicat CGT constituent le texte fondateur qui définit :</p>
+            <ul>
+              <li>L'objet et les missions du syndicat</li>
+              <li>Les modalités d'adhésion et les droits des adhérents</li>
+              <li>La structure des instances (CE, Bureau, etc.)</li>
+              <li>Les règles de prise de décision</li>
+              <li>Les modalités de gestion financière</li>
+            </ul>
+            <p>Ils garantissent un fonctionnement démocratique et transparent.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="timeline-item">
+        <div class="timeline-content" data-id="2">
+          <h3>Élaboration démocratique</h3>
+          <p>Les statuts sont élaborés collectivement et adoptés en congrès.</p>
+          <div class="timeline-details" id="details-2">
+            <p>Le processus d'élaboration des statuts est fondamentalement démocratique :</p>
+            <ul>
+              <li>Proposition initiale par un groupe de travail</li>
+              <li>Discussion et amendements par les adhérents</li>
+              <li>Débat en assemblée générale ou en congrès</li>
+              <li>Adoption par vote à la majorité</li>
+              <li>Possibilité de révision selon les mêmes procédures</li>
+            </ul>
+            <p>Ce processus garantit que les statuts reflètent la volonté collective des adhérents.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="timeline-item">
+        <div class="timeline-content" data-id="3">
+          <h3>Garantie de démocratie</h3>
+          <p>Les statuts assurent que les décisions sont prises démocratiquement.</p>
+          <div class="timeline-details" id="details-3">
+            <p>Les statuts sont le garant de la démocratie syndicale car ils :</p>
+            <ul>
+              <li>Définissent les modalités de vote et de prise de décision</li>
+              <li>Assurent la représentation de tous les adhérents</li>
+              <li>Établissent des mécanismes de contrôle des dirigeants</li>
+              <li>Prévoient la rotation des responsabilités</li>
+              <li>Garantissent la transparence des débats et des décisions</li>
+            </ul>
+            <p>Sans statuts clairs, le risque d'arbitraire et de concentration du pouvoir serait important.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="timeline-item">
+        <div class="timeline-content" data-id="4">
+          <h3>Protection juridique</h3>
+          <p>Les statuts donnent une existence légale au syndicat et protègent ses membres.</p>
+          <div class="timeline-details" id="details-4">
+            <p>Sur le plan juridique, les statuts :</p>
+            <ul>
+              <li>Confèrent la personnalité morale au syndicat</li>
+              <li>Permettent d'agir en justice et de signer des accords</li>
+              <li>Définissent les responsabilités des dirigeants</li>
+              <li>Protègent le syndicat contre les contestations externes</li>
+              <li>Établissent les règles de dissolution et de dévolution des biens</li>
+            </ul>
+            <p>Ils constituent donc une protection essentielle pour l'action syndicale.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="timeline-item">
+        <div class="timeline-content" data-id="5">
+          <h3>Cohérence confédérale</h3>
+          <p>Les statuts assurent la cohérence avec les valeurs et règles de la CGT.</p>
+          <div class="timeline-details" id="details-5">
+            <p>Les statuts d'un syndicat CGT s'inscrivent dans une cohérence confédérale :</p>
+            <ul>
+              <li>Ils respectent les statuts confédéraux de la CGT</li>
+              <li>Ils intègrent les valeurs fondamentales de la CGT</li>
+              <li>Ils prévoient l'affiliation aux structures interprofessionnelles (UL, UD)</li>
+              <li>Ils organisent le reversement des cotisations via COGETISE</li>
+              <li>Ils garantissent la participation aux instances fédérales et confédérales</li>
+            </ul>
+            <p>Cette cohérence assure l'unité d'action de la CGT à tous les niveaux.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="timeline-item">
+        <div class="timeline-content" data-id="6">
+          <h3>Évolution et adaptation</h3>
+          <p>Les statuts peuvent évoluer pour s'adapter aux nouveaux enjeux.</p>
+          <div class="timeline-details" id="details-6">
+            <p>Les statuts ne sont pas figés et peuvent évoluer :</p>
+            <ul>
+              <li>Adaptation aux évolutions du monde du travail</li>
+              <li>Prise en compte des nouvelles formes d'organisation</li>
+              <li>Intégration des enjeux contemporains (numérique, environnement...)</li>
+              <li>Amélioration des processus démocratiques</li>
+              <li>Révision lors des congrès selon des procédures définies</li>
+            </ul>
+            <p>Cette capacité d'adaptation garantit la pertinence du syndicat face aux défis actuels.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="statuts-quiz">
+      <h3>Activité : Organiser les instances selon leur pouvoir de décision</h3>
+      <p>Placez les différentes instances du syndicat dans la bonne catégorie selon leur rôle dans la prise de décision.</p>
+      
+      <div class="drag-drop-container">
+        <div class="drag-items">
+          <div class="drag-item" draggable="true" data-category="souverainete">Congrès</div>
+          <div class="drag-item" draggable="true" data-category="souverainete">Assemblée Générale</div>
+          <div class="drag-item" draggable="true" data-category="direction">Commission Exécutive</div>
+          <div class="drag-item" draggable="true" data-category="direction">Conseil Syndical</div>
+          <div class="drag-item" draggable="true" data-category="execution">Bureau</div>
+          <div class="drag-item" draggable="true" data-category="execution">Secrétariat</div>
+          <div class="drag-item" draggable="true" data-category="controle">Commission Financière de Contrôle</div>
+          <div class="drag-item" draggable="true" data-category="controle">Commission des Mandats</div>
+        </div>
+        
+        <div class="drop-zones">
+          <div class="drop-zone" data-category="souverainete">
+            <div class="drop-zone-label">Instances souveraines :</div>
+            <div class="drop-zone-items"></div>
+          </div>
+          <div class="drop-zone" data-category="direction">
+            <div class="drop-zone-label">Instances de direction :</div>
+            <div class="drop-zone-items"></div>
+          </div>
+          <div class="drop-zone" data-category="execution">
+            <div class="drop-zone-label">Instances d'exécution :</div>
+            <div class="drop-zone-items"></div>
+          </div>
+          <div class="drop-zone" data-category="controle">
+            <div class="drop-zone-label">Instances de contrôle :</div>
+            <div class="drop-zone-items"></div>
+          </div>
+        </div>
+        
+        <div class="quiz-feedback"></div>
+        
+        <div class="statuts-actions">
+          <button id="check-answers">Vérifier les réponses</button>
+          <button id="reset-activity">Réinitialiser l'activité</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="statuts-actions">
+      <button id="expand-all">Tout développer</button>
+      <button id="collapse-all">Tout réduire</button>
+      <button id="back-to-slides" onclick="window.location.href='index.html'">Retour aux slides</button>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Gestion du thème
+      const themeSwitch = document.getElementById('theme-switch');
+      const themeIcon = document.querySelector('.theme-icon');
+      
+      // Vérifier si un thème est déjà enregistré
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        themeSwitch.checked = true;
+        themeIcon.textContent = '☀️';
+      }
+      
+      themeSwitch.addEventListener('change', function() {
+        if (this.checked) {
+          document.documentElement.setAttribute('data-theme', 'dark');
+          localStorage.setItem('theme', 'dark');
+          themeIcon.textContent = '☀️';
+        } else {
+          document.documentElement.setAttribute('data-theme', 'light');
+          localStorage.setItem('theme', 'light');
+          themeIcon.textContent = '🌙';
+        }
+      });
+      
+      // Animation des éléments de la timeline
+      const timelineItems = document.querySelectorAll('.timeline-item');
+      
+      function checkScroll() {
+        timelineItems.forEach(item => {
+          const itemTop = item.getBoundingClientRect().top;
+          const itemBottom = item.getBoundingClientRect().bottom;
+          const windowHeight = window.innerHeight;
+          
+          if (itemTop < windowHeight - 100 && itemBottom > 0) {
+            item.classList.add('visible');
+          }
+        });
+      }
+      
+      // Vérifier au chargement initial
+      setTimeout(checkScroll, 300);
+      
+      // Vérifier au défilement
+      window.addEventListener('scroll', checkScroll);
+      
+      // Gestion des détails de la timeline
+      const timelineContents = document.querySelectorAll('.timeline-content');
+      
+      timelineContents.forEach(content => {
+        content.addEventListener('click', function() {
+          const detailsId = this.getAttribute('data-id');
+          const details = document.getElementById('details-' + detailsId);
+          
+          if (details.classList.contains('active')) {
+            details.classList.remove('active');
+          } else {
+            details.classList.add('active');
+          }
+        });
+      });
+      
+      // Boutons pour tout développer/réduire
+      const expandAllBtn = document.getElementById('expand-all');
+      const collapseAllBtn = document.getElementById('collapse-all');
+      
+      expandAllBtn.addEventListener('click', function() {
+        document.querySelectorAll('.timeline-details').forEach(details => {
+          details.classList.add('active');
+        });
+      });
+      
+      collapseAllBtn.addEventListener('click', function() {
+        document.querySelectorAll('.timeline-details').forEach(details => {
+          details.classList.remove('active');
+        });
+      });
+      
+      // Gestion des modes
+      const explorationModeBtn = document.getElementById('exploration-mode');
+      const quizModeBtn = document.getElementById('quiz-mode');
+      const timelineEl = document.querySelector('.statuts-timeline');
+      const quizEl = document.querySelector('.statuts-quiz');
+      
+      explorationModeBtn.addEventListener('click', function() {
+        explorationModeBtn.classList.add('active');
+        quizModeBtn.classList.remove('active');
+        timelineEl.style.display = 'block';
+        quizEl.classList.remove('active');
+      });
+      
+      quizModeBtn.addEventListener('click', function() {
+        quizModeBtn.classList.add('active');
+        explorationModeBtn.classList.remove('active');
+        timelineEl.style.display = 'none';
+        quizEl.classList.add('active');
+      });
+      
+      // Gestion du drag and drop
+      const dragItems = document.querySelectorAll('.drag-item');
+      const dropZones = document.querySelectorAll('.drop-zone');
+      const checkAnswersBtn = document.getElementById('check-answers');
+      const resetActivityBtn = document.getElementById('reset-activity');
+      const quizFeedback = document.querySelector('.quiz-feedback');
+      
+      let draggedItem = null;
+      
+      dragItems.forEach(item => {
+        item.addEventListener('dragstart', function() {
+          draggedItem = this;
+          setTimeout(() => {
+            this.classList.add('dragging');
+          }, 0);
+        });
+        
+        item.addEventListener('dragend', function() {
+          this.classList.remove('dragging');
+          draggedItem = null;
+        });
+      });
+      
+      dropZones.forEach(zone => {
+        zone.addEventListener('dragover', function(e) {
+          e.preventDefault();
+          this.classList.add('highlight');
+        });
+        
+        zone.addEventListener('dragleave', function() {
+          this.classList.remove('highlight');
+        });
+        
+        zone.addEventListener('drop', function(e) {
+          e.preventDefault();
+          this.classList.remove('highlight');
+          
+          if (draggedItem) {
+            const itemsContainer = this.querySelector('.drop-zone-items');
+            itemsContainer.appendChild(draggedItem);
+            draggedItem.setAttribute('draggable', 'true');
+          }
+        });
+      });
+      
+      checkAnswersBtn.addEventListener('click', function() {
+        let allCorrect = true;
+        
+        dropZones.forEach(zone => {
+          const category = zone.getAttribute('data-category');
+          const items = zone.querySelectorAll('.drag-item');
+          
+          items.forEach(item => {
+            if (item.getAttribute('data-category') !== category) {
+              allCorrect = false;
+              item.style.borderColor = '#dc3545';
+            } else {
+              item.style.borderColor = '#28a745';
+            }
+          });
+        });
+        
+        quizFeedback.style.display = 'block';
+        
+        if (allCorrect) {
+          quizFeedback.textContent = 'Bravo ! Toutes les instances sont correctement placées.';
+          quizFeedback.classList.add('correct');
+          quizFeedback.classList.remove('incorrect');
+        } else {
+          quizFeedback.textContent = 'Il y a des erreurs. Essayez de replacer les instances incorrectes.';
+          quizFeedback.classList.add('incorrect');
+          quizFeedback.classList.remove('correct');
+        }
+      });
+      
+      resetActivityBtn.addEventListener('click', function() {
+        const dragItemsContainer = document.querySelector('.drag-items');
+        
+        // Réinitialiser les styles
+        dragItems.forEach(item => {
+          item.style.borderColor = '';
+        });
+        
+        // Remettre tous les éléments dans le conteneur initial
+        dragItems.forEach(item => {
+          dragItemsContainer.appendChild(item);
+        });
+        
+        quizFeedback.style.display = 'none';
+      });
+      
+      // Fonction pour afficher/masquer la table des matières
+      function toggleTOC() {
+        const tocElement = document.getElementById('table-of-contents');
+        const tocOverlay = document.getElementById('toc-overlay');
+        
+        if (tocElement) {
+          tocElement.classList.toggle("active");
+          
+          // Gérer l'overlay
+          if (tocOverlay) {
+            tocOverlay.classList.toggle("active", tocElement.classList.contains("active"));
+            
+            // Ajouter un gestionnaire de clic sur l'overlay pour fermer la TOC
+            if (tocElement.classList.contains("active")) {
+              tocOverlay.onclick = function() {
+                tocElement.classList.remove("active");
+                tocOverlay.classList.remove("active");
+              };
+            }
+          }
+          
+          // Ajouter un gestionnaire pour la touche Escape
+          if (tocElement.classList.contains("active")) {
+            document.addEventListener('keydown', function closeTOCOnEscape(e) {
+              if (e.key === "Escape") {
+                tocElement.classList.remove("active");
+                tocOverlay.classList.remove("active");
+                document.removeEventListener('keydown', closeTOCOnEscape);
+              }
+            });
+          }
+        }
+      }
+      
+      // Initialiser le bouton de fermeture de la TOC
+      const closeTocBtn = document.getElementById('close-toc');
+      if (closeTocBtn) {
+        closeTocBtn.addEventListener('click', function() {
+          const tocElement = document.getElementById('table-of-contents');
+          const tocOverlay = document.getElementById('toc-overlay');
+          if (tocElement) {
+            tocElement.classList.remove('active');
+            if (tocOverlay) {
+              tocOverlay.classList.remove('active');
+            }
+          }
+        });
+      }
+      
+      // Gestion de la table des matières
+      const tocButton = document.querySelector('.toc-button');
+      const toc = document.getElementById('table-of-contents');
+      const tocOverlay = document.getElementById('toc-overlay');
+      const closeTocButton = document.getElementById('close-toc');
+      
+      tocButton.addEventListener('click', function() {
+        toc.style.display = 'block';
+        tocOverlay.style.display = 'block';
+      });
+      
+      closeTocButton.addEventListener('click', function() {
+        toc.style.display = 'none';
+        tocOverlay.style.display = 'none';
+      });
+      
+      tocOverlay.addEventListener('click', function() {
+        toc.style.display = 'none';
+        tocOverlay.style.display = 'none';
+      });
+    });
+  </script>
+</body>
+</html>

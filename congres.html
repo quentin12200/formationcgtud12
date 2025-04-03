@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AG et Congrès - Formation CGT</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    :root {
+      --cgt-red: #E30613;
+      --cgt-light-red: #ffebee;
+      --card-bg: #ffffff;
+      --bg-light: #f5f5f5;
+      --text-dark: #333333;
+      --text-light: #ffffff;
+      --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    body.dark-theme {
+      --card-bg: #2d2d2d;
+      --bg-light: #1a1a1a;
+      --text-dark: #f0f0f0;
+      --text-light: #ffffff;
+      --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    }
+    
+    body {
+      font-family: 'Montserrat', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg-light);
+      color: var(--text-dark);
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px;
+      background-color: var(--card-bg);
+      box-shadow: var(--shadow);
+      margin-bottom: 30px;
+    }
+    
+    header img {
+      height: 60px;
+    }
+    
+    .header-text {
+      flex-grow: 1;
+      text-align: center;
+    }
+    
+    h1 {
+      color: var(--cgt-red);
+      margin: 0;
+      font-size: 1.8rem;
+    }
+    
+    h2 {
+      margin: 0;
+      font-size: 1.4rem;
+    }
+    
+    .congres-container {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+    
+    .congres-section {
+      background-color: var(--card-bg);
+      border-radius: 10px;
+      box-shadow: var(--shadow);
+      padding: 20px;
+      transition: transform 0.3s ease;
+    }
+    
+    .congres-section:hover {
+      transform: translateY(-5px);
+    }
+    
+    .congres-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid var(--cgt-red);
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+    }
+    
+    .congres-actions {
+      display: flex;
+      gap: 10px;
+    }
+    
+    .congres-actions button {
+      background-color: var(--bg-light);
+      color: var(--text-dark);
+      border: none;
+      padding: 8px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 0.9em;
+      transition: all 0.2s;
+    }
+    
+    .congres-actions button:hover {
+      background-color: var(--cgt-red);
+      color: var(--text-light);
+    }
+    
+    .ordre-jour-builder {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    
+    .ordre-jour-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background-color: var(--bg-light);
+      padding: 10px;
+      border-radius: 5px;
+      border-left: 4px solid var(--cgt-red);
+    }
+    
+    .ordre-jour-item input {
+      flex-grow: 1;
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      background-color: var(--card-bg);
+      color: var(--text-dark);
+    }
+    
+    .ordre-jour-item button {
+      background-color: var(--cgt-red);
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+    
+    .ordre-jour-preview {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: var(--bg-light);
+      border-radius: 5px;
+    }
+    
+    .vote-simulation {
+      margin-top: 30px;
+    }
+    
+    .vote-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-top: 15px;
+    }
+    
+    .vote-option {
+      flex: 1;
+      min-width: 200px;
+      background-color: var(--bg-light);
+      padding: 15px;
+      border-radius: 5px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .vote-option:hover {
+      background-color: var(--cgt-light-red);
+      transform: scale(1.02);
+    }
+    
+    .vote-option.selected {
+      background-color: var(--cgt-light-red);
+      border: 2px solid var(--cgt-red);
+    }
+    
+    .vote-results {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: var(--bg-light);
+      border-radius: 5px;
+      display: none;
+    }
+    
+    .progress-bar {
+      height: 20px;
+      background-color: #e0e0e0;
+      border-radius: 10px;
+      margin-top: 5px;
+      overflow: hidden;
+    }
+    
+    .progress-fill {
+      height: 100%;
+      background-color: var(--cgt-red);
+      width: 0;
+      transition: width 1s ease-in-out;
+    }
+    
+    .back-button {
+      display: inline-block;
+      margin-top: 30px;
+      padding: 10px 20px;
+      background-color: var(--cgt-red);
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+    
+    .back-button:hover {
+      background-color: #c30000;
+    }
+    
+    /* Overlay pour la table des matières */
+    .toc-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(3px);
+      z-index: 999;
+      display: none;
+    }
+    
+    .toc-overlay.active {
+      display: block;
+    }
+    
+    /* Table des matières */
+    .toc {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 350px;
+      height: 100%;
+      background-color: var(--card-bg);
+      color: var(--text-dark);
+      z-index: 1000;
+      transition: transform 0.3s ease;
+      box-shadow: var(--shadow);
+      overflow-y: auto;
+      transform: translateX(100%);
+      padding: 0;
+    }
+    
+    .toc.active {
+      transform: translateX(0);
+    }
+    
+    @media (max-width: 768px) {
+      .congres-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      
+      .congres-actions {
+        margin-top: 10px;
+        flex-direction: column;
+        width: 100%;
+      }
+      
+      .congres-actions button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="img/logo-cgt.png" alt="Logo CGT Aveyron">
+    <div class="header-text">
+      <h1>Formation CGT – 4 avril 2025</h1>
+      <h2>AG et congrès : lieux de souveraineté</h2>
+    </div>
+    <!-- Sélecteur de thème -->
+    <div class="theme-switch-wrapper">
+      <label class="theme-switch" for="checkbox">
+        <input type="checkbox" id="checkbox" />
+        <div class="slider"></div>
+      </label>
+      <span class="theme-icon">🌙</span>
+    </div>
+  </header>
+  
+  <!-- Overlay pour la table des matières -->
+  <div id="toc-overlay" class="toc-overlay"></div>
+  
+  <!-- Table des matières -->
+  <div id="table-of-contents" class="toc">
+    <div class="toc-header">
+      <h2>Sommaire</h2>
+      <button id="close-toc" class="close-toc">×</button>
+    </div>
+    <div class="toc-content">
+      <ul>
+        <li><a href="index.html">Retour à la formation principale</a></li>
+        <li><a href="index.html#slide-5">Retour à la slide AG et congrès</a></li>
+        <li><a href="#ordre-jour">Construire un ordre du jour</a></li>
+        <li><a href="#simulation-vote">Simulation de vote</a></li>
+        <li><a href="statuts.html">Module : Fonctionnement statutaire</a></li>
+        <li><a href="roles.html">Module : Rôles dans le syndicat</a></li>
+        <li><a href="cotisations.html">Module : Cotisations</a></li>
+      </ul>
+    </div>
+  </div>
+  
+  <div class="container">
+    <div class="congres-container">
+      <div id="ordre-jour" class="congres-section">
+        <div class="congres-header">
+          <h2>Construire un ordre du jour pour un congrès syndical</h2>
+          <div class="congres-actions">
+            <button class="toc-button" type="button" onclick="toggleTOC()">📋 Sommaire</button>
+          </div>
+        </div>
+        
+        <p>Un ordre du jour bien structuré est essentiel pour un congrès syndical efficace. Il permet de définir les sujets à aborder et d'organiser le temps de parole.</p>
+        
+        <div class="ordre-jour-builder">
+          <h3>Créez votre ordre du jour :</h3>
+          
+          <div class="ordre-jour-item">
+            <span>1.</span>
+            <input type="text" placeholder="Exemple : Ouverture du congrès et accueil des participants" id="item1">
+            <button onclick="updatePreview()">✓</button>
+          </div>
+          
+          <div class="ordre-jour-item">
+            <span>2.</span>
+            <input type="text" placeholder="Exemple : Rapport d'activité" id="item2">
+            <button onclick="updatePreview()">✓</button>
+          </div>
+          
+          <div class="ordre-jour-item">
+            <span>3.</span>
+            <input type="text" placeholder="Exemple : Rapport financier" id="item3">
+            <button onclick="updatePreview()">✓</button>
+          </div>
+          
+          <div class="ordre-jour-item">
+            <span>4.</span>
+            <input type="text" placeholder="Exemple : Débat d'orientation" id="item4">
+            <button onclick="updatePreview()">✓</button>
+          </div>
+          
+          <div class="ordre-jour-item">
+            <span>5.</span>
+            <input type="text" placeholder="Exemple : Élection du bureau syndical" id="item5">
+            <button onclick="updatePreview()">✓</button>
+          </div>
+          
+          <button onclick="addItem()" style="align-self: flex-start; margin-top: 10px;">+ Ajouter un point</button>
+          
+          <div class="ordre-jour-preview">
+            <h3>Prévisualisation de l'ordre du jour :</h3>
+            <ol id="preview-list">
+              <li>Complétez les champs ci-dessus pour créer votre ordre du jour</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+      
+      <div id="simulation-vote" class="congres-section">
+        <div class="congres-header">
+          <h2>Simulation d'un vote</h2>
+          <div class="congres-actions">
+            <button class="toc-button" type="button" onclick="toggleTOC()">📋 Sommaire</button>
+          </div>
+        </div>
+        
+        <p>Les votes sont des moments clés dans la vie démocratique d'un syndicat. Ils permettent de prendre des décisions collectives et d'élire les représentants.</p>
+        
+        <div class="vote-simulation">
+          <h3>Simulation : Adoption du rapport d'activité</h3>
+          
+          <p>En tant que syndiqué·e, comment votez-vous sur le rapport d'activité présenté ?</p>
+          
+          <div class="vote-options">
+            <div class="vote-option" onclick="selectVote('pour')">
+              <h4>POUR</h4>
+              <p>J'approuve le rapport d'activité</p>
+            </div>
+            
+            <div class="vote-option" onclick="selectVote('contre')">
+              <h4>CONTRE</h4>
+              <p>Je n'approuve pas le rapport d'activité</p>
+            </div>
+            
+            <div class="vote-option" onclick="selectVote('abstention')">
+              <h4>ABSTENTION</h4>
+              <p>Je ne me prononce pas</p>
+            </div>
+          </div>
+          
+          <button onclick="simulateVote()" style="margin-top: 20px; padding: 10px 20px; background-color: var(--cgt-red); color: white; border: none; border-radius: 5px; cursor: pointer;">Voter</button>
+          
+          <div class="vote-results" id="vote-results">
+            <h3>Résultats du vote :</h3>
+            
+            <div>
+              <p>Pour : <span id="pour-percent">0</span>% (<span id="pour-count">0</span> votes)</p>
+              <div class="progress-bar">
+                <div class="progress-fill" id="pour-bar"></div>
+              </div>
+            </div>
+            
+            <div style="margin-top: 10px;">
+              <p>Contre : <span id="contre-percent">0</span>% (<span id="contre-count">0</span> votes)</p>
+              <div class="progress-bar">
+                <div class="progress-fill" id="contre-bar"></div>
+              </div>
+            </div>
+            
+            <div style="margin-top: 10px;">
+              <p>Abstention : <span id="abstention-percent">0</span>% (<span id="abstention-count">0</span> votes)</p>
+              <div class="progress-bar">
+                <div class="progress-fill" id="abstention-bar"></div>
+              </div>
+            </div>
+            
+            <div style="margin-top: 20px;">
+              <p id="vote-conclusion"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <a href="index.html" class="back-button">← Retour à la formation principale</a>
+  </div>
+  
+  <script>
+    // Gestion du thème sombre
+    const checkbox = document.getElementById('checkbox');
+    
+    // Vérifier si un thème est enregistré
+    if (localStorage.getItem('theme') === 'dark') {
+      document.body.classList.add('dark-theme');
+      checkbox.checked = true;
+      document.querySelector('.theme-icon').textContent = '☀️';
+    }
+    
+    checkbox.addEventListener('change', function() {
+      if (this.checked) {
+        document.body.classList.add('dark-theme');
+        localStorage.setItem('theme', 'dark');
+        document.querySelector('.theme-icon').textContent = '☀️';
+      } else {
+        document.body.classList.remove('dark-theme');
+        localStorage.setItem('theme', 'light');
+        document.querySelector('.theme-icon').textContent = '🌙';
+      }
+    });
+    
+    // Gestion de l'ordre du jour
+    let itemCount = 5;
+    
+    function addItem() {
+      itemCount++;
+      
+      const newItem = document.createElement('div');
+      newItem.className = 'ordre-jour-item';
+      newItem.innerHTML = `
+        <span>${itemCount}.</span>
+        <input type="text" placeholder="Nouveau point à l'ordre du jour" id="item${itemCount}">
+        <button onclick="updatePreview()">✓</button>
+      `;
+      
+      const addButton = document.querySelector('.ordre-jour-builder > button');
+      document.querySelector('.ordre-jour-builder').insertBefore(newItem, addButton);
+    }
+    
+    function updatePreview() {
+      const previewList = document.getElementById('preview-list');
+      previewList.innerHTML = '';
+      
+      for (let i = 1; i <= itemCount; i++) {
+        const input = document.getElementById(`item${i}`);
+        if (input && input.value.trim() !== '') {
+          const li = document.createElement('li');
+          li.textContent = input.value;
+          previewList.appendChild(li);
+        }
+      }
+      
+      if (previewList.children.length === 0) {
+        const li = document.createElement('li');
+        li.textContent = 'Complétez les champs ci-dessus pour créer votre ordre du jour';
+        previewList.appendChild(li);
+      }
+    }
+    
+    // Simulation de vote
+    let selectedVote = null;
+    
+    function selectVote(vote) {
+      selectedVote = vote;
+      
+      // Réinitialiser toutes les options
+      document.querySelectorAll('.vote-option').forEach(option => {
+        option.classList.remove('selected');
+      });
+      
+      // Sélectionner l'option choisie
+      document.querySelector(`.vote-option:nth-child(${vote === 'pour' ? 1 : vote === 'contre' ? 2 : 3})`).classList.add('selected');
+    }
+    
+    function simulateVote() {
+      if (!selectedVote) {
+        alert('Veuillez sélectionner une option de vote');
+        return;
+      }
+      
+      // Simuler les résultats du vote
+      const totalVotes = Math.floor(Math.random() * 30) + 20; // Entre 20 et 50 votes
+      let pourVotes, contreVotes, abstentionVotes;
+      
+      // Influencer légèrement les résultats en fonction du vote de l'utilisateur
+      if (selectedVote === 'pour') {
+        pourVotes = Math.floor(Math.random() * (totalVotes * 0.4)) + Math.floor(totalVotes * 0.4); // 40-80%
+        contreVotes = Math.floor(Math.random() * (totalVotes - pourVotes) * 0.7);
+        abstentionVotes = totalVotes - pourVotes - contreVotes;
+      } else if (selectedVote === 'contre') {
+        contreVotes = Math.floor(Math.random() * (totalVotes * 0.4)) + Math.floor(totalVotes * 0.3); // 30-70%
+        pourVotes = Math.floor(Math.random() * (totalVotes - contreVotes) * 0.7);
+        abstentionVotes = totalVotes - pourVotes - contreVotes;
+      } else {
+        abstentionVotes = Math.floor(Math.random() * (totalVotes * 0.3)) + Math.floor(totalVotes * 0.2); // 20-50%
+        pourVotes = Math.floor(Math.random() * (totalVotes - abstentionVotes) * 0.6);
+        contreVotes = totalVotes - pourVotes - abstentionVotes;
+      }
+      
+      // Calculer les pourcentages
+      const pourPercent = Math.round((pourVotes / totalVotes) * 100);
+      const contrePercent = Math.round((contreVotes / totalVotes) * 100);
+      const abstentionPercent = Math.round((abstentionVotes / totalVotes) * 100);
+      
+      // Mettre à jour l'affichage des résultats
+      document.getElementById('pour-percent').textContent = pourPercent;
+      document.getElementById('pour-count').textContent = pourVotes;
+      document.getElementById('pour-bar').style.width = `${pourPercent}%`;
+      
+      document.getElementById('contre-percent').textContent = contrePercent;
+      document.getElementById('contre-count').textContent = contreVotes;
+      document.getElementById('contre-bar').style.width = `${contrePercent}%`;
+      
+      document.getElementById('abstention-percent').textContent = abstentionPercent;
+      document.getElementById('abstention-count').textContent = abstentionVotes;
+      document.getElementById('abstention-bar').style.width = `${abstentionPercent}%`;
+      
+      // Conclusion du vote
+      let conclusion;
+      if (pourVotes > contreVotes) {
+        conclusion = 'Le rapport d\'activité est <strong>ADOPTÉ</strong> à la majorité.';
+      } else if (pourVotes < contreVotes) {
+        conclusion = 'Le rapport d\'activité est <strong>REJETÉ</strong> à la majorité.';
+      } else {
+        conclusion = 'Le vote est à égalité. Selon les statuts, un nouveau débat et un nouveau vote peuvent être nécessaires.';
+      }
+      
+      document.getElementById('vote-conclusion').innerHTML = conclusion;
+      
+      // Afficher les résultats
+      document.getElementById('vote-results').style.display = 'block';
+    }
+    
+    // Gestion de la table des matières
+    function toggleTOC() {
+      const tocElement = document.getElementById('table-of-contents');
+      const tocOverlay = document.getElementById('toc-overlay');
+      
+      if (tocElement) {
+        tocElement.classList.toggle("active");
+        
+        // Gérer l'overlay
+        if (tocOverlay) {
+          tocOverlay.classList.toggle("active", tocElement.classList.contains("active"));
+          
+          // Ajouter un gestionnaire de clic sur l'overlay pour fermer la TOC
+          if (tocElement.classList.contains("active")) {
+            tocOverlay.onclick = function() {
+              tocElement.classList.remove("active");
+              tocOverlay.classList.remove("active");
+            };
+          }
+        }
+        
+        // Ajouter un gestionnaire pour la touche Escape
+        if (tocElement.classList.contains("active")) {
+          document.addEventListener('keydown', function closeTOCOnEscape(e) {
+            if (e.key === "Escape") {
+              tocElement.classList.remove("active");
+              tocOverlay.classList.remove("active");
+              document.removeEventListener('keydown', closeTOCOnEscape);
+            }
+          });
+        }
+      }
+    }
+    
+    // Initialiser la prévisualisation de l'ordre du jour
+    updatePreview();
+  </script>
+</body>
+</html>
