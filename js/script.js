@@ -140,9 +140,12 @@ document.addEventListener("DOMContentLoaded", function() {
   
   // Configurer la navigation par numéro de slide
   setupSlideJump();
-  
+
   // Restaurer les heures sauvegardées
   restoreSavedTimes();
+
+  // Configurer l'éditeur de date
+  setupDateEditor();
 });
 
 /**
@@ -644,3 +647,64 @@ function setupGlossaryModal() {
 
 // Restaurer les heures sauvegardées au chargement
 window.addEventListener("load", restoreSavedTimes);
+
+/**
+ * Formate une date en français (ex: "4 avril 2025")
+ */
+function formatDateFR(dateStr) {
+  const mois = [
+    "janvier", "février", "mars", "avril", "mai", "juin",
+    "juillet", "août", "septembre", "octobre", "novembre", "décembre"
+  ];
+  const [year, month, day] = dateStr.split("-").map(Number);
+  return `${day} ${mois[month - 1]} ${year}`;
+}
+
+/**
+ * Configure l'éditeur de date du header
+ */
+function setupDateEditor() {
+  const dateText = document.getElementById("formation-date-text");
+  const editBtn = document.getElementById("edit-date-btn");
+  const dateEditor = document.getElementById("date-editor");
+  const datePicker = document.getElementById("date-picker");
+  const confirmBtn = document.getElementById("date-confirm-btn");
+  const cancelBtn = document.getElementById("date-cancel-btn");
+
+  if (!dateText || !editBtn || !dateEditor || !datePicker) return;
+
+  // Restaurer la date sauvegardée
+  const savedDate = localStorage.getItem("formationDate");
+  if (savedDate) {
+    dateText.textContent = formatDateFR(savedDate);
+    datePicker.value = savedDate;
+  }
+
+  // Ouvrir l'éditeur
+  editBtn.addEventListener("click", function () {
+    dateEditor.style.display = dateEditor.style.display === "none" ? "flex" : "none";
+    if (dateEditor.style.display === "flex") {
+      datePicker.focus();
+    }
+  });
+
+  // Valider la nouvelle date
+  confirmBtn.addEventListener("click", function () {
+    if (!datePicker.value) return;
+    const formatted = formatDateFR(datePicker.value);
+    dateText.textContent = formatted;
+    localStorage.setItem("formationDate", datePicker.value);
+    dateEditor.style.display = "none";
+  });
+
+  // Annuler
+  cancelBtn.addEventListener("click", function () {
+    dateEditor.style.display = "none";
+  });
+
+  // Valider avec Entrée
+  datePicker.addEventListener("keydown", function (e) {
+    if (e.key === "Enter") confirmBtn.click();
+    if (e.key === "Escape") cancelBtn.click();
+  });
+}

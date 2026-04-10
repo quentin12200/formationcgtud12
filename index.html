@@ -11,7 +11,14 @@
   <header>
     <img src="img/logo-cgt.png" alt="Logo CGT Aveyron">
     <div class="header-text">
-      <h1>Formation CGT – 4 avril 2025</h1>
+      <h1>Formation CGT – <span id="formation-date-text">4 avril 2025</span>
+        <button id="edit-date-btn" title="Modifier la date" aria-label="Modifier la date">✏️</button>
+      </h1>
+      <div id="date-editor" class="date-editor" style="display:none;">
+        <input type="date" id="date-picker" />
+        <button id="date-confirm-btn">Valider</button>
+        <button id="date-cancel-btn">Annuler</button>
+      </div>
       <h2>Fonctionnement statutaire d'un syndicat</h2>
     </div>
     <!-- Sélecteur de thème -->
