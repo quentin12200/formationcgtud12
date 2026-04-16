@@ -65,6 +65,81 @@ header img {
 .header-text h1 {
   margin: 5px 0;
   font-size: 1.6em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+#edit-date-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.7em;
+  padding: 2px 6px;
+  border-radius: 4px;
+  opacity: 0.7;
+  transition: opacity 0.2s, background 0.2s;
+  line-height: 1;
+}
+
+#edit-date-btn:hover {
+  opacity: 1;
+  background: rgba(255,255,255,0.2);
+}
+
+.date-editor {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+  flex-wrap: wrap;
+}
+
+.date-editor input[type="date"] {
+  padding: 5px 8px;
+  border: 2px solid rgba(255,255,255,0.6);
+  border-radius: 5px;
+  background: rgba(255,255,255,0.15);
+  color: var(--text-light);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.95em;
+  cursor: pointer;
+}
+
+.date-editor input[type="date"]:focus {
+  outline: none;
+  border-color: #fff;
+  background: rgba(255,255,255,0.25);
+}
+
+.date-editor button {
+  padding: 5px 12px;
+  border: none;
+  border-radius: 5px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.85em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+#date-confirm-btn {
+  background: #fff;
+  color: var(--cgt-red);
+}
+
+#date-confirm-btn:hover {
+  opacity: 0.85;
+}
+
+#date-cancel-btn {
+  background: rgba(255,255,255,0.2);
+  color: var(--text-light);
+}
+
+#date-cancel-btn:hover {
+  opacity: 0.8;
 }
 
 .header-text h2 {
